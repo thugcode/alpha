@@ -1364,7 +1364,7 @@ async function refreshFeeds(){
       toast(msg);return}
     if(data&&data.byId){FEEDS=clean(data.byId);FEEDMETA={day:kstDayKey(),used:data.used,limit:data.limit}}
     const ok=Object.values(FEEDS).filter(f=>f&&f.status==="ok").length;
-    toast(`업데이트했다 · ${ok}/${(WATCH||[]).length}개 링크에서 글을 가져왔다 · 오늘 ${REFRESH_LIMIT-(data.used||0)}번 남음`);
+    toast(data.counted===false?`요약하지 못해 횟수는 차감하지 않았다 · 오늘 ${REFRESH_LIMIT-(data.used||0)}번 남음`:`업데이트했다 · ${ok}/${(WATCH||[]).length}개 링크에서 글을 가져왔다 · 오늘 ${REFRESH_LIMIT-(data.used||0)}번 남음`);
   }catch(e){toast("업데이트하지 못했다: "+((e&&e.message)||e))}
   finally{refreshing=false;renderKeep()}
 }

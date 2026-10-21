@@ -235,9 +235,17 @@ async function gemini(system, user, maxTokens) {
   const key = (Deno.env.get("GEMINI_API_KEY") || "").trim();
   const list = geminiModel ? [geminiModel] : await geminiCandidates(key);
   let last = null;
-  for (const model of list) {
-    try { const out = await geminiCall(key, model, system, user, maxTokens); geminiModel = model; return out; }
-    catch (e) { last = e; if (!/ai_(404|400)/.test((e as Error).message)) throw e; } // 모델이 없으면 다음 후보
+  const all = geminiModel ? [geminiModel, ...(await geminiCandidates(key)).filter((m) => m !== geminiModel)] : list;
+  for (const model of all) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try { const out = await geminiCall(key, model, system, user, maxTokens); geminiModel = model; return out; }
+      catch (e) {
+        last = e; const m = (e as Error).message || "";
+        if (/ai_(500|503)|ai_empty/.test(m) && attempt === 0) { await new Promise((r) => setTimeout(r, 1500)); continue; } // 붐비면 잠시 뒤 한 번 더
+        if (/ai_(404|400|500|503|limit)|ai_empty/.test(m)) break; // 다른 모델로
+        throw e; // 키 거절 등은 바로 알린다
+      }
+    }
   }
   throw last || new Error("ai_model");
 }
@@ -379,6 +387,7 @@ async function collect(link: { id: string; url: string }, profile: unknown) {
       } catch (e) {
         const msg = (e as Error).message || ""; console.error("ai", msg);
         aiNote = /ai_limit/.test(msg) ? "오늘 AI 요약 한도에 걸려 글 목록만 보여 준다."
+          : /ai_(500|503|529)/.test(msg) ? "AI 서버가 붐벼서 이번에는 글 목록만 보여 준다. 잠시 뒤 다시 업데이트한다."
           : /ai_(401|403)/.test(msg) ? "AI 키가 거절됐다. Supabase Secrets의 키 값을 확인한다. (" + msg.slice(0, 140) + ")"
           : "AI 요약에 실패해 글 목록만 보여 준다. (" + msg.slice(0, 140) + ")";
       }
@@ -412,14 +421,23 @@ Deno.serve(async (req) => {
     if (!links.length) return reply(400, { error: "no_links", message: "등록한 링크가 없다." });
 
     const day = kstDay();
-    const { data: used, error: be } = await service.rpc("bump_feed_refresh", { p_user: uid, p_day: day, p_max: DAILY_LIMIT });
-    if (be) return reply(500, { error: "counter", message: "업데이트 횟수를 확인하지 못했다. schema.sql의 3번을 실행했는지 확인한다." });
-    if (used === -1) return reply(429, { error: "limit", message: "오늘 업데이트 3번을 모두 썼다. 내일 다시 할 수 있다.", used: DAILY_LIMIT, limit: DAILY_LIMIT });
+    const { data: cnt, error: ce } = await service.from("feed_refresh").select("used").eq("user_id", uid).eq("day", day).maybeSingle();
+    if (ce) return reply(500, { error: "counter", message: "업데이트 횟수를 확인하지 못했다. schema.sql의 3번을 실행했는지 확인한다." });
+    if ((cnt?.used || 0) >= DAILY_LIMIT) return reply(429, { error: "limit", message: "오늘 업데이트 3번을 모두 썼다. 내일 다시 할 수 있다.", used: DAILY_LIMIT, limit: DAILY_LIMIT });
 
     const { data: sd } = await service.from("user_docs").select("data").eq("user_id", uid).eq("doc_id", "state").maybeSingle();
     const profile = sd?.data?.s?.profile || null;
     const results = await Promise.all(links.map((l: any) => collect(l, profile).catch(() => ({ status: "error", fetchedAt: new Date().toISOString(), items: [], note: "가져오는 중 문제가 생겼다.", source: "manual" }))));
 
+    // 글을 하나라도 제대로 가져왔을 때만 횟수를 센다. AI 서버가 붐벼서 요약을 못 한 경우도 세지 않는다.
+    const useful = results.some((r: any) => r.status === "ok" && (r.source === "ai" || !/AI/.test(r.note || "")));
+    let used = cnt?.used || 0;
+    if (useful) {
+      const { data: u2, error: be } = await service.rpc("bump_feed_refresh", { p_user: uid, p_day: day, p_max: DAILY_LIMIT });
+      if (be) return reply(500, { error: "counter", message: "업데이트 횟수를 확인하지 못했다. schema.sql의 3번을 실행했는지 확인한다." });
+      if (u2 === -1) return reply(429, { error: "limit", message: "오늘 업데이트 3번을 모두 썼다. 내일 다시 할 수 있다.", used: DAILY_LIMIT, limit: DAILY_LIMIT });
+      used = u2;
+    }
     const { data: fdoc } = await service.from("user_docs").select("data").eq("user_id", uid).eq("doc_id", "feeds").maybeSingle();
     const prev = (fdoc?.data) || {};
     const byId: Record<string, unknown> = {};
@@ -430,7 +448,7 @@ Deno.serve(async (req) => {
     const { error: we } = await service.from("user_docs").upsert({ user_id: uid, doc_id: "feeds", data, updated_at: new Date().toISOString() }, { onConflict: "user_id,doc_id" });
     if (we) return reply(500, { error: "save", message: "가져온 내용을 저장하지 못했다." });
 
-    return reply(200, { ok: true, used, limit: DAILY_LIMIT, byId });
+    return reply(200, { ok: true, used, limit: DAILY_LIMIT, counted: useful, byId });
   } catch (e) {
     return reply(500, { error: "server", message: "업데이트 중 문제가 생겼다: " + ((e as Error)?.message || e) });
   }
