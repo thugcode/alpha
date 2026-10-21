@@ -468,6 +468,10 @@ nav.tabs .tab-alpha[aria-selected="true"] .mark.sm{box-shadow:0 0 0 2px var(--in
 .cf-act{display:flex;gap:8px;justify-content:flex-end;margin-top:6px;flex-wrap:wrap}
 .btn.danger{background:var(--bad);border-color:var(--bad);color:#fff}
 
+.wrefresh{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.wrefresh .btn{height:40px;padding:0 18px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.busy{opacity:.7}
 .wcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .whead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:12px 14px}
 .whead b{display:block;font-size:14.5px}
@@ -821,7 +825,7 @@ function sampleHist(){const r=rng(7),h={};const cur={};DOMAINS.forEach(x=>cur[x.
       m[kk]=+(worse?v*(1+.25*p):v*(1-.45*p)+(r()-.5)*v*.1).toFixed(2)});
     h[k]={o:Math.round(Object.values(d).reduce((a,b)=>a+b,0)/DOMAINS.length),d,m,base:Math.round(clamp(2.6-1.6*p+(r()-.5)*1.6,0,4)),xp:Math.round(clamp(70-45*p+(r()-.5)*40,0,140)),sample:true}}
   return h}
-const APP_VER="web-2";let LAST_ERR="";
+const APP_VER="web-3";let LAST_ERR="";
 window.addEventListener("error",e=>{LAST_ERR=(e.message||"")+" @"+(e.lineno||"");try{toast("오류: "+e.message)}catch(_){}});
 window.addEventListener("unhandledrejection",e=>{const r=e.reason;LAST_ERR=String(r&&(r.message||r.code)||r);});
 let S=load();
@@ -1307,7 +1311,7 @@ function viewMoney(){
 // ===================== 알파 브리핑 =====================
 let BRIEF=null,briefErr=false,oppFilter="전체",oppMore=false,profEdit=false;
 // 내 알림 링크: data/users/<내 id>/watch 문서에 링크 목록, feeds 문서에 수집 결과(Claude가 업데이트 때 채움)
-let WATCH=null,FEEDS={},watchMode="loading",watchAdd=false;
+let WATCH=null,FEEDS={},FEEDMETA=null,watchMode="loading",watchAdd=false,refreshing=false;
 function localWatch(){try{return JSON.parse(localStorage.getItem(KEY+"-watch"))||[]}catch(e){return[]}}
 function saveLocalWatch(l){try{localStorage.setItem(KEY+"-watch",JSON.stringify(l))}catch(e){}}
 let WDB=null,WID=null;
@@ -1324,32 +1328,57 @@ async function watchInit(){
       if(ol.length)await db.collection("watch").doc(id).set({links:clean(ol),updatedAt:new Date().toISOString()})}}catch(_){}
     try{const of=await old.doc("feeds").get();if(of.exists)oldFeeds=clean((of.data()||{}).byId||{})}catch(_){}
     db.collection("watch").doc(id).onSnapshot(sn=>{WATCH=sn.exists?clean((sn.data()||{}).links||[]):[];if(tab==="alpha")renderKeep()},()=>{});
-    db.collection("feeds").doc(id).onSnapshot(sn=>{FEEDS=sn.exists?clean((sn.data()||{}).byId||{}):oldFeeds;if(tab==="alpha")renderKeep()},()=>{});
+    db.collection("feeds").doc(id).onSnapshot(sn=>{if(refreshing)return;const fd=sn.exists?(sn.data()||{}):{};FEEDS=sn.exists?clean(fd.byId||{}):oldFeeds;FEEDMETA=fd.manual||null;if(tab==="alpha")renderKeep()},()=>{});
   }catch(e){watchMode="local";WATCH=localWatch();if(tab==="alpha")renderKeep()}
 }
 function renderKeep(){const ae=document.activeElement;if(ae&&/INPUT|TEXTAREA/.test(ae.tagName))return;const y=window.scrollY;render();window.scrollTo(0,y)}
 async function saveWatch(links){WATCH=links;
   if(watchMode==="db"){try{await WDB.collection("watch").doc(WID).set({links:clean(links),updatedAt:new Date().toISOString()})}catch(e){toast("저장하지 못했다. 잠시 후 다시 시도한다")}}
   else saveLocalWatch(links)}
+// ---------- 내 알림 링크 '지금 업데이트' (하루 3번) ----------
+const REFRESH_LIMIT=3;
+function kstDayKey(){return new Date(Date.now()+9*3600e3).toISOString().slice(0,10)}
+function refreshUsed(){return FEEDMETA&&FEEDMETA.day===kstDayKey()?(FEEDMETA.used||0):0}
+async function refreshFeeds(){
+  if(refreshing)return;
+  if(watchMode!=="db"){toast("로그인해야 지금 업데이트를 쓸 수 있다");return}
+  if(!(WATCH||[]).length){toast("먼저 링크를 등록한다");return}
+  if(refreshUsed()>=REFRESH_LIMIT){toast("오늘 업데이트 3번을 모두 썼다. 내일 다시 할 수 있다");return}
+  const sb=window.AUTH&&window.AUTH.sb;if(!sb){toast("로그인 연결을 확인하지 못했다");return}
+  refreshing=true;renderKeep();
+  try{
+    const {data,error}=await sb.functions.invoke("refresh-feeds",{body:{}});
+    if(error){let msg="",code=0;try{code=error.context&&error.context.status;const j=await error.context.json();msg=j&&j.message;if(j&&j.used!=null)FEEDMETA={day:kstDayKey(),used:j.used,limit:j.limit}}catch(_){}
+      if(!msg)msg=code===404||/Failed to send|fetch/i.test(String(error.message))?"업데이트 기능이 아직 설치되지 않았다. 운영자에게 알린다.":"업데이트하지 못했다. 잠시 후 다시 시도한다.";
+      toast(msg);return}
+    if(data&&data.byId){FEEDS=clean(data.byId);FEEDMETA={day:kstDayKey(),used:data.used,limit:data.limit}}
+    const ok=Object.values(FEEDS).filter(f=>f&&f.status==="ok").length;
+    toast(`업데이트했다 · ${ok}/${(WATCH||[]).length}개 링크에서 글을 가져왔다 · 오늘 ${REFRESH_LIMIT-(data.used||0)}번 남음`);
+  }catch(e){toast("업데이트하지 못했다: "+((e&&e.message)||e))}
+  finally{refreshing=false;renderKeep()}
+}
 function watchBlock(){
   const links=WATCH;
   if(links==null)return `<section class="sec" id="b-watch"><h2>내 알림 링크</h2><p class="note">불러오는 중이다.</p></section>`;
   const host=u=>{try{return new URL(u).hostname.replace(/^www\./,"")}catch(e){return u}};
-  const st={ok:["수집됨","good"],blocked:["자동 수집 불가","bad"],error:["수집 실패","warn"],pending:["다음 업데이트 때 수집","info"]};
+  const st={ok:["수집됨","good"],blocked:["자동 수집 불가","bad"],error:["수집 실패","warn"],pending:["업데이트 전","info"]};
+  const left=Math.max(0,REFRESH_LIMIT-refreshUsed()),canRefresh=watchMode==="db"&&links.length&&left>0&&!refreshing;
   return `<section class="sec" id="b-watch">
     <div class="sec-head"><h2>내 알림 링크</h2><button class="linkbtn" id="w-add">${watchAdd?'닫기':'+ 링크 등록'}</button></div>
+    ${links.length?`<div class="wrefresh"><button class="btn${refreshing?' busy':''}" id="w-refresh" ${canRefresh?'':'disabled'}>${refreshing?'가져오는 중…':left>0?'지금 업데이트':'오늘 횟수 다 씀'}</button>
+      <span class="note">${watchMode!=="db"?'로그인하면 쓸 수 있다':`오늘 <b class="num">${left}</b>/${REFRESH_LIMIT}번 남음 · 자정에 다시 3번이 된다`}</span></div>`:''}
     <p class="note">학교·부대 공지, 기관 채용 게시판, 자주 보는 사이트를 등록하면 그곳의 새 글을 매일 아침 모아 준다. 최대 5개. 등록한 주소는 다른 사용자에게 보이지 않지만, 매일 수집을 위해 앱 운영자는 볼 수 있다.</p>
     ${watchAdd?`<form class="form panel pad" id="w-form">
       <input id="w-url" inputmode="url" placeholder="https://..." aria-label="등록할 링크">
       <input id="w-name" placeholder="이름 (선택, 예: 학교 비교과)" aria-label="링크 이름">
       <button class="btn" type="submit">등록</button>
-      <p class="note">새로 등록한 링크는 다음 브리핑 업데이트 때 내용을 가져온다.${watchMode==="local"?' 로그인하지 않으면 링크가 이 기기에만 저장되고, 매일 아침 내용 수집은 되지 않는다.':''}</p></form>`:''}
+      <p class="note">등록한 뒤 '지금 업데이트'를 누르면 바로 내용을 가져온다. 누르지 않아도 매일 아침 모아 준다.${watchMode==="local"?' 로그인하지 않으면 링크가 이 기기에만 저장되고, 매일 아침 내용 수집은 되지 않는다.':''}</p></form>`:''}
     ${links.length?links.map(l=>{const f=FEEDS[l.id]||{status:"pending"};const [sl,sc]=st[f.status]||st.pending;const items=(f.items||[]).slice(0,5);
       return `<div class="wcard"><div class="whead"><div style="min-width:0"><b>${esc(l.name||host(l.url))}</b><a class="wurl" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(host(l.url))} ↗</a></div>
         <span class="sev ${sc}">${sl}</span></div>
         ${items.length?`<div class="witems">${items.map(it=>`<a class="news" href="${esc(it.url||l.url)}" target="_blank" rel="noopener"><b>${esc(it.t)}</b>${it.s?`<span>${esc(it.s)}</span>`:''}${it.date?`<small>${esc(it.date)}</small>`:''}</a>`).join("")}</div>`:''}
         ${f.note?`<p class="note wnote">${esc(f.note)}</p>`:''}
-        <div class="wfoot"><span class="note">${f.fetchedAt?`${new Date(f.fetchedAt).getMonth()+1}.${new Date(f.fetchedAt).getDate()} 확인`:`${l.addedAt?new Date(l.addedAt).getMonth()+1+'.'+new Date(l.addedAt).getDate()+' 등록':''}`}</span>
+        <div class="wfoot"><span class="note">${f.fetchedAt?`${new Date(f.fetchedAt).getMonth()+1}.${new Date(f.fetchedAt).getDate()} ${pad2(new Date(f.fetchedAt).getHours())}:${pad2(new Date(f.fetchedAt).getMinutes())} 확인`:`${l.addedAt?new Date(l.addedAt).getMonth()+1+'.'+new Date(l.addedAt).getDate()+' 등록':''}`}</span>
           <button class="seg" data-wdel="${esc(l.id)}">삭제</button></div></div>`}).join(""):'<p class="note pad panel">아직 등록한 링크가 없다.</p>'}
   </section>`;
 }
@@ -1901,6 +1930,7 @@ document.getElementById("app").addEventListener("click",e=>{
   const rv=t.closest("[data-review]");if(rv){const e=S.exp.find(x=>x.id===rv.dataset.review);if(e){e.review=rv.dataset.v;save();render();toast(e.review==="good"?"잘 쓴 돈으로 평가했다":"아까운 돈으로 평가했다")}return}
   if(t.closest("#rep-open")){repOpen=true;return renderReport()}
   if(t.id==="w-add"){watchAdd=!watchAdd;return render()}
+  if(t.id==="w-refresh")return refreshFeeds();
   const wd=t.closest("[data-wdel]");if(wd){const id=wd.dataset.wdel,l=(WATCH||[]).find(x=>x.id===id);
     return askConfirm({title:"이 링크를 삭제할까?",body:`${esc(l?(l.name||l.url):"")} 링크와 모아 둔 내용이 알파 탭에서 사라진다.`,yes:"예, 삭제한다",danger:true,onYes:async()=>{await saveWatch((WATCH||[]).filter(x=>x.id!==id));render();toast("링크를 삭제했다")}})}
   const of=t.closest("[data-ofilter]");if(of){oppFilter=of.dataset.ofilter;oppMore=false;return render()}
@@ -1987,7 +2017,7 @@ function handleFormInner(f){
     if((WATCH||[]).length>=5){toast("링크는 5개까지 등록할 수 있다");return}
     if((WATCH||[]).some(l=>l.url===u)){toast("이미 등록한 링크다");return}
     const name=document.getElementById("w-name").value.trim();
-    saveWatch([...(WATCH||[]),{id:"w"+uid(),url:u,name,addedAt:new Date().toISOString()}]).then(()=>{watchAdd=false;render();toast("등록했다. 다음 업데이트 때 내용을 가져온다")});return}
+    saveWatch([...(WATCH||[]),{id:"w"+uid(),url:u,name,addedAt:new Date().toISOString()}]).then(()=>{watchAdd=false;render();toast(refreshUsed()<REFRESH_LIMIT?"등록했다. '지금 업데이트'를 누르면 바로 가져온다":"등록했다. 내일 아침에 내용을 가져온다")});return}
   if(f.id==="addmeal"){const menu=document.getElementById("meal-menu").value.trim();if(!menu)return;const k=todayKey();
     const before=proteinMeals(k);(S.meals[k]||(S.meals[k]=[])).push({id:"m"+uid(),slot:selSlot,menu,protein:mealPro,at:nowHM()});save();render();
     toast(before<2&&proteinMeals(k)>=2?"단백질 2끼 달성 · +5 XP":`${selSlot} 기록했다`);return}
