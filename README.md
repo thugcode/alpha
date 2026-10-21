@@ -101,12 +101,21 @@ Claude 아티팩트였던 알파를 일반 웹사이트로 옮긴 버전이다. 
 
 키를 넣으면 '지금 업데이트'가 글을 그냥 모으지 않고, 사이트 성격에 맞게 핵심만 골라 요약한다.
 뉴스면 지금 가장 중요한 이슈를, 청년 지원 사이트면 사용자 상황에 맞는 정책을, 채용·공지 게시판이면 챙겨야 할 글을 고르고 "왜 나에게 중요한지"를 함께 보여 준다.
-키가 없으면 예전처럼 글 목록만 보여 준다.
+키가 없거나 AI 한도에 걸리면 예전처럼 글 목록만 보여 준다.
 
-1. https://console.anthropic.com 에 가입하고 결제 수단을 등록한다. **Settings → Limits** 에서 월 사용 한도를 낮게(예: 5달러) 정해 두면 안심이다.
-2. **API Keys → Create Key** 로 키를 만들고 복사한다 (`sk-ant-…`). 이 키는 절대 GitHub에 올리지 않는다.
-3. Supabase → **Edge Functions → Secrets** → **Add new secret**: Name `ANTHROPIC_API_KEY`, Value 에 복사한 키 → Save.
+### A. 무료로 시작: Gemini 키
+
+1. Google 계정으로 https://aistudio.google.com 에 들어간다.
+2. 왼쪽 아래(또는 위쪽) **Get API key** → **Create API key** → 키(`AIza…`)를 복사한다. 이 키는 절대 GitHub에 올리지 않는다.
+3. Supabase → **Edge Functions → Secrets** → **Add new secret**: Name `GEMINI_API_KEY`, Value 에 복사한 키 → Save.
 4. Supabase → Edge Functions → **refresh-feeds → Code** 탭에서 코드를 모두 지우고 저장소의 최신 `supabase/functions/refresh-feeds/index.ts` 를 붙여 넣은 뒤 **Deploy**.
 
-- 링크 하나를 업데이트할 때 AI를 두 번 부른다(핵심 고르기 → 요약). 사용량은 사용자 수 × 하루 3번 × 링크 수만큼 늘어난다.
-- 모델은 빠르고 저렴한 `claude-haiku-5-5` 를 쓴다. 바꾸려면 파일 위쪽의 `MODEL` 값을 고친다.
+- 무료 구간은 하루 호출 수에 한도가 있고, 이 한도는 앱 사용자 전체가 함께 쓴다. 정확한 값은 AI Studio의 Rate limit 화면에서 본다.
+- 무료 구간에서 보낸 내용(등록한 사이트의 공개 내용, 사용자의 상황·전공·관심 분야)은 Google이 서비스 개선에 쓸 수 있다. 이름·이메일은 보내지 않는다.
+- 모델은 쓸 수 있는 Flash 모델 중 안정판 최신 버전을 자동으로 고른다. 특정 모델을 쓰려면 Secret `GEMINI_MODEL` 에 모델 이름(예: `gemini-2.5-flash`)을 넣는다.
+
+### B. 나중에 바꾸기: Claude 키 (유료)
+
+사용자가 늘어 무료 한도가 모자라면 https://console.anthropic.com 에서 키(`sk-ant-…`)를 만들어 Secret `ANTHROPIC_API_KEY` 로 넣는다. 두 키가 모두 있으면 Claude를 쓴다. 결제 전에 **Settings → Limits** 에서 월 사용 한도를 정해 둔다.
+
+- 링크 하나를 업데이트할 때 AI를 두 번 부른다(핵심 고르기 → 요약).
