@@ -90,6 +90,7 @@ Claude 아티팩트였던 알파를 일반 웹사이트로 옮긴 버전이다. 
 3. 함수 이름을 정확히 `refresh-feeds` 로 적는다.
 4. 편집기에 있는 예시 코드를 모두 지우고, 저장소의 `supabase/functions/refresh-feeds/index.ts` 내용을 통째로 붙여 넣는다.
 5. **Deploy function** 을 누른다. 1분쯤 뒤 목록에 `refresh-feeds` 가 보이면 끝.
+6. 목록에서 `refresh-feeds` 를 눌러 **Details**(또는 Settings) 로 들어가, **Enforce JWT verification**(Verify JWT) 을 **끄고** 저장한다. 새 방식 키(`sb_publishable_…`)를 쓰는 프로젝트는 이 검사가 로그인 토큰을 거절할 수 있다. 함수가 안에서 로그인을 직접 확인하므로 꺼도 안전하다.
 
 - 횟수는 한국 시간 자정에 다시 3번으로 돌아간다. 횟수는 서버에서 세기 때문에 앱을 고쳐도 늘릴 수 없다.
 - 사이트가 robots.txt로 자동 수집을 막아 두었거나, 로그인이 필요하거나, 화면을 연 뒤에 내용을 불러오는 사이트(예: 학교 비교과 시스템)는 가져오지 못하고 카드에 이유가 표시된다.

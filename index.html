@@ -825,7 +825,7 @@ function sampleHist(){const r=rng(7),h={};const cur={};DOMAINS.forEach(x=>cur[x.
       m[kk]=+(worse?v*(1+.25*p):v*(1-.45*p)+(r()-.5)*v*.1).toFixed(2)});
     h[k]={o:Math.round(Object.values(d).reduce((a,b)=>a+b,0)/DOMAINS.length),d,m,base:Math.round(clamp(2.6-1.6*p+(r()-.5)*1.6,0,4)),xp:Math.round(clamp(70-45*p+(r()-.5)*40,0,140)),sample:true}}
   return h}
-const APP_VER="web-3";let LAST_ERR="";
+const APP_VER="web-3.1";let LAST_ERR="";
 window.addEventListener("error",e=>{LAST_ERR=(e.message||"")+" @"+(e.lineno||"");try{toast("오류: "+e.message)}catch(_){}});
 window.addEventListener("unhandledrejection",e=>{const r=e.reason;LAST_ERR=String(r&&(r.message||r.code)||r);});
 let S=load();
@@ -1349,7 +1349,12 @@ async function refreshFeeds(){
   try{
     const {data,error}=await sb.functions.invoke("refresh-feeds",{body:{}});
     if(error){let msg="",code=0;try{code=error.context&&error.context.status;const j=await error.context.json();msg=j&&j.message;if(j&&j.used!=null)FEEDMETA={day:kstDayKey(),used:j.used,limit:j.limit}}catch(_){}
-      if(!msg)msg=code===404||/Failed to send|fetch/i.test(String(error.message))?"업데이트 기능이 아직 설치되지 않았다. 운영자에게 알린다.":"업데이트하지 못했다. 잠시 후 다시 시도한다.";
+      if(!msg){const raw=String(error&&error.message||error);
+        msg=code===404?"업데이트 함수(refresh-feeds)를 찾지 못했다. 함수 이름을 확인한다."
+          :code===401?"서버가 로그인 확인을 거절했다(401). 함수의 JWT 검사 설정을 끈다."
+          :/Failed to send|fetch|network/i.test(raw)?"업데이트 함수에 연결하지 못했다. 함수의 JWT 검사 설정을 끄거나 배포 상태를 확인한다."
+          :`업데이트하지 못했다 (${code||raw}). 잠시 후 다시 시도한다.`}
+      LAST_ERR="refresh-feeds: "+(code||"")+" "+String(error&&error.message||error);
       toast(msg);return}
     if(data&&data.byId){FEEDS=clean(data.byId);FEEDMETA={day:kstDayKey(),used:data.used,limit:data.limit}}
     const ok=Object.values(FEEDS).filter(f=>f&&f.status==="ok").length;
