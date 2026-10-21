@@ -23,14 +23,24 @@
 // 여기서 같은 모양의 함수를 Supabase(로그인 + 테이블)로 구현해, 본체 코드는 거의 그대로 둔다.
 (function(){
   const C=window.ALPHA_CONFIG||{};
-  const configured=!!(window.supabase&&C.SUPABASE_URL&&C.SUPABASE_ANON_KEY&&!/YOUR_|여기에/.test(C.SUPABASE_URL+C.SUPABASE_ANON_KEY));
-  const sb=configured?window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}):null;
+  const URL_=String(C.SUPABASE_URL||"").trim().replace(/\/+$/,""),KEY=String(C.SUPABASE_ANON_KEY||"").trim();
+  // 로그인 칸을 못 띄우는 이유를 화면에 정확히 보여 주기 위해 하나씩 확인한다
+  let reason="";
+  if(!window.ALPHA_CONFIG)reason="config.js 파일을 찾지 못했다. 저장소 맨 위(index.html 옆)에 config.js가 있는지 확인한다.";
+  else if(!window.supabase)reason="vendor/supabase.js 파일을 찾지 못했다. 저장소에 vendor 폴더와 그 안의 supabase.js가 올라갔는지 확인한다.";
+  else if(!URL_||/YOUR_|여기에/.test(URL_))reason="config.js의 SUPABASE_URL이 아직 예시 값이다. Project URL을 붙여 넣고 저장(Commit)한다.";
+  else if(!/^https:\/\/[^\s"']+\.supabase\.(co|in|net)$/.test(URL_))reason="config.js의 SUPABASE_URL 모양이 이상하다: "+URL_+" (https://xxxx.supabase.co 형태여야 한다)";
+  else if(!KEY||/YOUR_|여기에/.test(KEY))reason="config.js의 SUPABASE_ANON_KEY가 아직 예시 값이다. 공개 키(sb_publishable_… 또는 eyJ…)를 붙여 넣고 저장한다.";
+  else if(/^sb_secret_/.test(KEY))reason="config.js에 Secret key가 들어 있다. 지금 바로 지우고 Publishable key로 바꾼다(Secret key는 Supabase에서 새로 발급받는다).";
+  let sb=null;
+  if(!reason){try{sb=window.supabase.createClient(URL_,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}})}catch(e){reason="Supabase 연결을 만들지 못했다: "+((e&&e.message)||e)}}
+  const configured=!!sb;
 
   let decide,decidedValue;const decided=new Promise(r=>{decide=v=>{if(decidedValue!==undefined)return;decidedValue=v;r(v)}});
   let session=null;
-  const AUTH=window.AUTH={configured,sb,decided,
+  const AUTH=window.AUTH={configured,sb,decided,reason,
     get email(){return session&&session.user?session.user.email:""},
-    wantOpen:false,
+    wantOpen:false,wantReset:false,
     login(){AUTH.wantOpen=true;window.dispatchEvent(new Event("alpha-auth-open"))},
     skip(){decide(null);AUTH.wantOpen=false;window.dispatchEvent(new Event("alpha-auth-close"))},
     async logout(){try{if(sb)await sb.auth.signOut()}catch(_){}try{["alpha-proto-v2","alpha-proto-v2-watch"].forEach(k=>localStorage.removeItem(k))}catch(_){}location.replace(location.pathname)}
@@ -39,6 +49,9 @@
   else{
     sb.auth.getSession().then(({data})=>{session=data&&data.session;if(session)decide(session);else AUTH.login()}).catch(()=>AUTH.login());
     sb.auth.onAuthStateChange((ev,s)=>{
+      // 비밀번호 재설정 메일의 링크로 들어온 경우: 새 비밀번호를 정하는 화면을 띄운다
+      if(ev==="PASSWORD_RECOVERY"){session=s||session;AUTH.wantReset=true;if(s)decide(s);window.dispatchEvent(new Event("alpha-auth-reset"));return}
+      if(ev==="SIGNED_IN"&&s&&AUTH.wantReset){session=s;decide(s);return}
       if(ev==="SIGNED_IN"&&s){const was=session;session=s;AUTH.wantOpen=false;window.dispatchEvent(new Event("alpha-auth-close"));
         // 로그인 없이 둘러보다가 로그인했으면 새로 불러와야 계정 기록이 연결된다
         if(decidedValue===null||(was&&was.user&&was.user.id!==s.user.id))location.replace(location.pathname);else decide(s)}
@@ -499,18 +512,23 @@ nav.tabs .tab-alpha[aria-selected="true"] .mark.sm{box-shadow:0 0 0 2px var(--in
   <div class="in" style="justify-content:center">
     <span class="mark" role="img" aria-label="알파 아이콘" style="width:72px;height:72px;border-radius:18px"></span>
     <div class="hero" style="font-size:36px">알파</div>
-    <p class="lead">이메일로 로그인하면 기록이 계정에 저장되어 어느 기기에서나 이어진다. 비밀번호는 필요 없다.</p>
-    <div class="field" id="auth-s1">
+    <p class="lead" id="auth-lead">로그인하면 기록이 계정에 저장되어 어느 기기에서나 이어진다.</p>
+    <div class="tabs3" id="auth-tabs" role="tablist" aria-label="로그인 방식" style="grid-template-columns:repeat(2,1fr)">
+      <button role="tab" data-amode="login" aria-selected="true">로그인</button>
+      <button role="tab" data-amode="signup" aria-selected="false">처음이면 가입</button>
+    </div>
+    <div class="field" id="auth-form">
       <label for="auth-email">이메일</label>
       <input id="auth-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com">
-      <button class="btn" id="auth-send">로그인 코드 받기</button>
+      <label for="auth-pw">비밀번호 <span class="note" id="auth-pwhint">(6자 이상)</span></label>
+      <input id="auth-pw" type="password" autocomplete="current-password" placeholder="비밀번호">
+      <button class="btn" id="auth-go">로그인</button>
+      <button class="linkbtn" id="auth-forgot" style="align-self:flex-start">비밀번호를 잊었다</button>
     </div>
-    <div class="field" id="auth-s2" hidden>
-      <label for="auth-code">메일로 받은 숫자 코드</label>
-      <input id="auth-code" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="메일 속 숫자 코드">
-      <button class="btn" id="auth-verify">확인</button>
-      <p class="note">메일 속 로그인 링크를 눌러도 된다. 홈 화면에 추가한 앱으로 쓴다면 코드를 입력하는 편이 확실하다. 메일이 안 보이면 스팸함을 확인한다.</p>
-      <button class="linkbtn" id="auth-back" style="align-self:flex-start">이메일 다시 입력</button>
+    <div class="field" id="auth-reset" hidden>
+      <label for="auth-newpw">새 비밀번호 (6자 이상)</label>
+      <input id="auth-newpw" type="password" autocomplete="new-password" placeholder="새 비밀번호">
+      <button class="btn" id="auth-setpw">새 비밀번호 저장</button>
     </div>
     <p class="note" id="auth-msg" role="status"></p>
     <button class="linkbtn" id="auth-skip" style="align-self:flex-start">로그인 없이 둘러보기 (이 기기에만 저장)</button>
@@ -519,29 +537,51 @@ nav.tabs .tab-alpha[aria-selected="true"] .mark.sm{box-shadow:0 0 0 2px var(--in
 <script>
 (function(){
   const $=id=>document.getElementById(id),box=$("auth"),msg=t=>{$("auth-msg").textContent=t||""};
-  let email="";
-  function open(){box.hidden=false;msg(AUTH.configured?"":"아직 서버 설정(config.js)이 되지 않아 로그인할 수 없다. 둘러보기만 가능하다.");
-    $("auth-s1").hidden=!AUTH.configured;$("auth-s2").hidden=true;setTimeout(()=>{const i=$("auth-email");if(i&&!i.hidden)i.focus()},50)}
+  let mode="login";
+  function setMode(m){mode=m;document.querySelectorAll("[data-amode]").forEach(b=>b.setAttribute("aria-selected",b.dataset.amode===m));
+    $("auth-go").textContent=m==="login"?"로그인":"가입하고 시작하기";$("auth-pw").autocomplete=m==="login"?"current-password":"new-password";
+    $("auth-forgot").hidden=m!=="login";msg("")}
+  function open(){box.hidden=false;const ok=AUTH.configured;
+    $("auth-tabs").hidden=!ok;$("auth-form").hidden=!ok;$("auth-reset").hidden=true;
+    msg(ok?"":"로그인 칸을 띄우지 못했다. "+(AUTH.reason||"서버 설정(config.js)을 확인한다.")+" 고친 뒤 새로고침한다.");
+    setTimeout(()=>{const i=$("auth-email");if(ok&&i)i.focus()},50)}
+  function openReset(){box.hidden=false;$("auth-tabs").hidden=true;$("auth-form").hidden=true;$("auth-reset").hidden=false;$("auth-skip").hidden=true;
+    $("auth-lead").textContent="새로 쓸 비밀번호를 정한다.";msg("")}
   window.addEventListener("alpha-auth-open",open);
+  window.addEventListener("alpha-auth-reset",openReset);
   window.addEventListener("alpha-auth-close",()=>{box.hidden=true});
-  $("auth-send").addEventListener("click",async()=>{
-    email=$("auth-email").value.trim();if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){msg("이메일 주소를 확인한다.");return}
-    $("auth-send").disabled=true;msg("보내는 중이다…");
-    try{const {error}=await AUTH.sb.auth.signInWithOtp({email,options:{shouldCreateUser:true,emailRedirectTo:location.origin+location.pathname}});
-      if(error)throw error;$("auth-s1").hidden=true;$("auth-s2").hidden=false;msg(email+"로 로그인 메일을 보냈다.");setTimeout(()=>$("auth-code").focus(),50)}
-    catch(e){msg(/rate|limit|429/i.test((e&&(e.message||e.status))+"")?"메일을 너무 자주 요청했다. 1분쯤 뒤에 다시 시도한다.":"메일을 보내지 못했다: "+((e&&e.message)||e))}
-    finally{$("auth-send").disabled=false}});
-  $("auth-verify").addEventListener("click",async()=>{
-    const token=$("auth-code").value.replace(/\D/g,"");if(token.length<6){msg("메일 속 숫자 코드를 입력한다.");return}
-    $("auth-verify").disabled=true;msg("확인하는 중이다…");
-    try{const {error}=await AUTH.sb.auth.verifyOtp({email,token,type:"email"});if(error)throw error;msg("")}
-    catch(e){msg("코드가 맞지 않거나 시간이 지났다. 새 코드를 받아 다시 시도한다.")}
-    finally{$("auth-verify").disabled=false}});
-  $("auth-code").addEventListener("keydown",e=>{if(e.key==="Enter")$("auth-verify").click()});
-  $("auth-email").addEventListener("keydown",e=>{if(e.key==="Enter")$("auth-send").click()});
-  $("auth-back").addEventListener("click",()=>{$("auth-s1").hidden=false;$("auth-s2").hidden=true;msg("")});
+  document.querySelectorAll("[data-amode]").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.amode)));
+  const errText=e=>{const m=((e&&(e.message||e.error_description))||"")+"";
+    if(/invalid login credentials/i.test(m))return"이메일이나 비밀번호가 맞지 않다. 처음이라면 '처음이면 가입'을 누른다.";
+    if(/already registered|already exists/i.test(m))return"이미 가입한 이메일이다. '로그인'에서 들어간다.";
+    if(/password/i.test(m)&&/6|short|least/i.test(m))return"비밀번호는 6자 이상이어야 한다.";
+    if(/email not confirmed/i.test(m))return"이메일 확인이 아직 안 됐다. 받은 메일의 링크를 누르고 다시 로그인한다.";
+    if(/rate|limit|429/i.test(m))return"너무 자주 시도했다. 잠시 뒤에 다시 시도한다.";
+    return"문제가 생겼다: "+m};
+  $("auth-go").addEventListener("click",async()=>{
+    const email=$("auth-email").value.trim(),password=$("auth-pw").value;
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){msg("이메일 주소를 확인한다.");return}
+    if(password.length<6){msg("비밀번호는 6자 이상이어야 한다.");return}
+    $("auth-go").disabled=true;msg(mode==="login"?"로그인하는 중이다…":"가입하는 중이다…");
+    try{
+      if(mode==="login"){const {error}=await AUTH.sb.auth.signInWithPassword({email,password});if(error)throw error;msg("")}
+      else{const {data,error}=await AUTH.sb.auth.signUp({email,password,options:{emailRedirectTo:location.origin+location.pathname}});if(error)throw error;
+        if(data&&data.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0){setMode("login");msg("이미 가입한 이메일이다. 비밀번호를 넣고 로그인한다.");return}
+        if(!data||!data.session)msg("가입 확인 메일을 보냈다. 메일 속 링크를 누른 뒤 이 화면에서 로그인한다.");else msg("")}
+    }catch(e){msg(errText(e))}finally{$("auth-go").disabled=false}});
+  $("auth-forgot").addEventListener("click",async()=>{
+    const email=$("auth-email").value.trim();if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){msg("위에 이메일을 먼저 입력하고 다시 누른다.");return}
+    try{const {error}=await AUTH.sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});if(error)throw error;
+      msg(email+"로 비밀번호 재설정 메일을 보냈다. 메일 속 링크를 누르면 새 비밀번호를 정하는 화면이 열린다. 안 보이면 스팸함을 확인한다.")}
+    catch(e){msg(errText(e))}});
+  $("auth-setpw").addEventListener("click",async()=>{
+    const password=$("auth-newpw").value;if(password.length<6){msg("비밀번호는 6자 이상이어야 한다.");return}
+    $("auth-setpw").disabled=true;
+    try{const {error}=await AUTH.sb.auth.updateUser({password});if(error)throw error;msg("새 비밀번호를 저장했다.");setTimeout(()=>location.replace(location.pathname),700)}
+    catch(e){msg(errText(e))}finally{$("auth-setpw").disabled=false}});
+  ["auth-email","auth-pw"].forEach(id=>$(id).addEventListener("keydown",e=>{if(e.key==="Enter")$("auth-go").click()}));
   $("auth-skip").addEventListener("click",()=>AUTH.skip());
-  if(AUTH.wantOpen)open();
+  if(AUTH.wantReset)openReset();else if(AUTH.wantOpen)open();
 })();
 </script>
 
