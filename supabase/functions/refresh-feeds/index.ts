@@ -197,7 +197,24 @@ function parseJsonText(text) {
   if (!m) throw new Error("ai_format");
   return JSON.parse(m[0]);
 }
-let geminiModel = null;
+let geminiModel = null, geminiList = null;
+const GEMINI_FALLBACK = ["gemini-3.5-flash", "gemini-2.5-flash", "gemini-3.5-flash-lite", "gemini-2.5-flash-lite"];
+async function geminiCandidates(key) {
+  if (geminiList) return geminiList;
+  const fixed = Deno.env.get("GEMINI_MODEL");
+  if (fixed) return (geminiList = [fixed.replace(/^models\//, "")]);
+  try {
+    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=200", { headers: { "x-goog-api-key": key } });
+    const j = await r.json();
+    if (!r.ok) throw new Error(String(r.status));
+    const names = (j.models || []).filter((m) => (m.supportedGenerationMethods || []).includes("generateContent")).map((m) => String(m.name).replace(/^models\//, ""));
+    const flash = names.filter((n) => /^gemini-[\d.]+-flash/.test(n) && !/(image|tts|audio|live|thinking|exp)/.test(n));
+    const ver = (n) => parseFloat((/gemini-([\d.]+)/.exec(n) || [])[1] || "0");
+    flash.sort((a, b) => (/preview/.test(a) - /preview/.test(b)) || (/lite/.test(a) - /lite/.test(b)) || (ver(b) - ver(a)));
+    if (flash.length) return (geminiList = [...new Set([...flash.slice(0, 4), ...GEMINI_FALLBACK])]);
+  } catch { /* 목록을 못 읽으면 기본 후보를 차례로 시도한다 */ }
+  return (geminiList = GEMINI_FALLBACK);
+}
 async function pickGeminiModel(key) {
   if (geminiModel) return geminiModel;
   const fixed = Deno.env.get("GEMINI_MODEL");
@@ -215,8 +232,16 @@ async function pickGeminiModel(key) {
   return (geminiModel = "gemini-2.5-flash");
 }
 async function gemini(system, user, maxTokens) {
-  const key = Deno.env.get("GEMINI_API_KEY");
-  const model = await pickGeminiModel(key);
+  const key = (Deno.env.get("GEMINI_API_KEY") || "").trim();
+  const list = geminiModel ? [geminiModel] : await geminiCandidates(key);
+  let last = null;
+  for (const model of list) {
+    try { const out = await geminiCall(key, model, system, user, maxTokens); geminiModel = model; return out; }
+    catch (e) { last = e; if (!/ai_(404|400)/.test((e as Error).message)) throw e; } // 모델이 없으면 다음 후보
+  }
+  throw last || new Error("ai_model");
+}
+async function geminiCall(key, model, system, user, maxTokens) {
   const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 45000);
   try {
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
@@ -230,8 +255,9 @@ async function gemini(system, user, maxTokens) {
       }),
     });
     const j = await res.json();
-    if (!res.ok) throw new Error((res.status === 429 ? "ai_limit" : "ai_" + res.status) + ": " + (j?.error?.message || ""));
+    if (!res.ok) throw new Error((res.status === 429 ? "ai_limit" : "ai_" + res.status) + " [" + model + "] " + (j?.error?.status || "") + " " + (j?.error?.message || ""));
     const text = (j.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("");
+    if (!text) throw new Error("ai_empty [" + model + "] " + (j.candidates?.[0]?.finishReason || j.promptFeedback?.blockReason || ""));
     return parseJsonText(text);
   } finally { clearTimeout(timer); }
 }
@@ -352,7 +378,9 @@ async function collect(link: { id: string; url: string }, profile: unknown) {
         if (d.items.length || d.headline) return { status: "ok", fetchedAt: now, kind: d.kind, headline: d.headline, items: d.items, note: d.items.length ? "" : "지금 고를 만한 글이 없다.", source: "ai" };
       } catch (e) {
         const msg = (e as Error).message || ""; console.error("ai", msg);
-        aiNote = /ai_limit/.test(msg) ? "오늘 AI 요약 한도에 걸려 글 목록만 보여 준다." : "AI 요약에 실패해 글 목록만 보여 준다.";
+        aiNote = /ai_limit/.test(msg) ? "오늘 AI 요약 한도에 걸려 글 목록만 보여 준다."
+          : /ai_(401|403)/.test(msg) ? "AI 키가 거절됐다. Supabase Secrets의 키 값을 확인한다. (" + msg.slice(0, 140) + ")"
+          : "AI 요약에 실패해 글 목록만 보여 준다. (" + msg.slice(0, 140) + ")";
       }
     }
   }
