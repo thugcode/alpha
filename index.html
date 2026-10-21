@@ -472,6 +472,12 @@ nav.tabs .tab-alpha[aria-selected="true"] .mark.sm{box-shadow:0 0 0 2px var(--in
 .wrefresh .btn{height:40px;padding:0 18px}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .btn.busy{opacity:.7}
+.whl{padding:0 14px 10px;display:flex;flex-direction:column;gap:4px}
+.whl p{margin:0;font-size:13px;color:var(--muted);line-height:1.5}
+.wkind{align-self:flex-start;font-size:10.5px;letter-spacing:.04em;color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:1px 7px}
+.news.ai b{display:flex;gap:8px;align-items:baseline}
+.wn{font-family:var(--f-num);font-size:12px;color:var(--muted);min-width:12px}
+.wwhy{font-style:normal;font-size:12.5px;color:var(--good);line-height:1.5}
 .wcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .whead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:12px 14px}
 .whead b{display:block;font-size:14.5px}
@@ -825,7 +831,7 @@ function sampleHist(){const r=rng(7),h={};const cur={};DOMAINS.forEach(x=>cur[x.
       m[kk]=+(worse?v*(1+.25*p):v*(1-.45*p)+(r()-.5)*v*.1).toFixed(2)});
     h[k]={o:Math.round(Object.values(d).reduce((a,b)=>a+b,0)/DOMAINS.length),d,m,base:Math.round(clamp(2.6-1.6*p+(r()-.5)*1.6,0,4)),xp:Math.round(clamp(70-45*p+(r()-.5)*40,0,140)),sample:true}}
   return h}
-const APP_VER="web-3.1";let LAST_ERR="";
+const APP_VER="web-4";let LAST_ERR="";
 window.addEventListener("error",e=>{LAST_ERR=(e.message||"")+" @"+(e.lineno||"");try{toast("오류: "+e.message)}catch(_){}});
 window.addEventListener("unhandledrejection",e=>{const r=e.reason;LAST_ERR=String(r&&(r.message||r.code)||r);});
 let S=load();
@@ -1370,9 +1376,9 @@ function watchBlock(){
   const left=Math.max(0,REFRESH_LIMIT-refreshUsed()),canRefresh=watchMode==="db"&&links.length&&left>0&&!refreshing;
   return `<section class="sec" id="b-watch">
     <div class="sec-head"><h2>내 알림 링크</h2><button class="linkbtn" id="w-add">${watchAdd?'닫기':'+ 링크 등록'}</button></div>
-    ${links.length?`<div class="wrefresh"><button class="btn${refreshing?' busy':''}" id="w-refresh" ${canRefresh?'':'disabled'}>${refreshing?'가져오는 중…':left>0?'지금 업데이트':'오늘 횟수 다 씀'}</button>
+    ${links.length?`<div class="wrefresh"><button class="btn${refreshing?' busy':''}" id="w-refresh" ${canRefresh?'':'disabled'}>${refreshing?'분석하는 중… (최대 1분)':left>0?'지금 업데이트':'오늘 횟수 다 씀'}</button>
       <span class="note">${watchMode!=="db"?'로그인하면 쓸 수 있다':`오늘 <b class="num">${left}</b>/${REFRESH_LIMIT}번 남음 · 자정에 다시 3번이 된다`}</span></div>`:''}
-    <p class="note">학교·부대 공지, 기관 채용 게시판, 자주 보는 사이트를 등록하면 그곳의 새 글을 매일 아침 모아 준다. 최대 5개. 등록한 주소는 다른 사용자에게 보이지 않지만, 매일 수집을 위해 앱 운영자는 볼 수 있다.</p>
+    <p class="note">학교·부대 공지, 기관 채용 게시판, 자주 보는 사이트를 등록하면 알파가 사이트 성격을 읽고 핵심만 골라 준다. 뉴스면 지금 가장 중요한 이슈를 요약하고, 청년 지원 사이트면 나에게 맞는 정책을, 채용·공지 게시판이면 내가 챙겨야 할 글을 고른다. 최대 5개. 등록한 주소는 다른 사용자에게 보이지 않지만, 매일 수집을 위해 앱 운영자는 볼 수 있다.</p>
     ${watchAdd?`<form class="form panel pad" id="w-form">
       <input id="w-url" inputmode="url" placeholder="https://..." aria-label="등록할 링크">
       <input id="w-name" placeholder="이름 (선택, 예: 학교 비교과)" aria-label="링크 이름">
@@ -1381,7 +1387,9 @@ function watchBlock(){
     ${links.length?links.map(l=>{const f=FEEDS[l.id]||{status:"pending"};const [sl,sc]=st[f.status]||st.pending;const items=(f.items||[]).slice(0,5);
       return `<div class="wcard"><div class="whead"><div style="min-width:0"><b>${esc(l.name||host(l.url))}</b><a class="wurl" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(host(l.url))} ↗</a></div>
         <span class="sev ${sc}">${sl}</span></div>
-        ${items.length?`<div class="witems">${items.map(it=>`<a class="news" href="${esc(it.url||l.url)}" target="_blank" rel="noopener"><b>${esc(it.t)}</b>${it.s?`<span>${esc(it.s)}</span>`:''}${it.date?`<small>${esc(it.date)}</small>`:''}</a>`).join("")}</div>`:''}
+        ${f.headline?`<div class="whl">${f.kind?`<span class="wkind">${esc(f.kind)}</span>`:''}<p>${esc(f.headline)}</p></div>`:''}
+        ${items.length?`<div class="witems">${items.map((it,n)=>`<a class="news${f.source==='ai'?' ai':''}" href="${esc(it.url||l.url)}" target="_blank" rel="noopener">
+          <b>${f.source==='ai'?`<span class="wn">${n+1}</span>`:''}${esc(it.t)}</b>${it.s?`<span>${esc(it.s)}</span>`:''}${it.why?`<em class="wwhy">${esc(it.why)}</em>`:''}${it.date?`<small>${esc(it.date)}</small>`:''}</a>`).join("")}</div>`:''}
         ${f.note?`<p class="note wnote">${esc(f.note)}</p>`:''}
         <div class="wfoot"><span class="note">${f.fetchedAt?`${new Date(f.fetchedAt).getMonth()+1}.${new Date(f.fetchedAt).getDate()} ${pad2(new Date(f.fetchedAt).getHours())}:${pad2(new Date(f.fetchedAt).getMinutes())} 확인`:`${l.addedAt?new Date(l.addedAt).getMonth()+1+'.'+new Date(l.addedAt).getDate()+' 등록':''}`}</span>
           <button class="seg" data-wdel="${esc(l.id)}">삭제</button></div></div>`}).join(""):'<p class="note pad panel">아직 등록한 링크가 없다.</p>'}
