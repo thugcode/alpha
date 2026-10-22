@@ -31,7 +31,7 @@ function cors(origin: string | null) {
   const o = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
   return {
     "Access-Control-Allow-Origin": o,
-    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-cron-secret",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Vary": "Origin",
   };
@@ -404,14 +404,70 @@ async function collect(link: { id: string; url: string }, profile: unknown) {
   return { status: "ok", fetchedAt: now, items, note: aiNote, source: "manual" };
 }
 
+// ---------- 매일 아침 자동 갱신 (Supabase 예약 작업이 부른다) ----------
+// 요청 헤더 x-cron-secret 이 Secrets 의 CRON_SECRET 과 같을 때만 실행한다.
+// 링크를 등록한 모든 사용자의 링크를 모아 각자의 feeds 문서에 쓴다. 사용자의 '지금 업데이트' 횟수는 건드리지 않는다.
+function sameSecret(a: string, b: string) {
+  if (!a || !b || a.length !== b.length) return false;
+  let d = 0; for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i); return d === 0;
+}
+async function saveFeeds(service: any, uid: string, links: any[], results: any[], extra: Record<string, unknown>) {
+  const { data: fdoc } = await service.from("user_docs").select("data").eq("user_id", uid).eq("doc_id", "feeds").maybeSingle();
+  const prev = (fdoc?.data) || {};
+  const byId: Record<string, unknown> = {};
+  const ids = new Set(links.map((l: any) => l.id));
+  for (const [k, v] of Object.entries(prev.byId || {})) if (ids.has(k)) byId[k] = v;
+  links.forEach((l: any, i: number) => {
+    const r = results[i], old: any = prev.byId?.[l.id];
+    // 자동 갱신이 실패했는데 예전에 가져온 글이 있으면 예전 글을 그대로 둔다
+    byId[l.id] = r.status !== "ok" && old?.status === "ok" && extra.auto ? { ...old, note: "오늘 아침 갱신에 실패해 이전 내용을 보여 준다. " + (r.note || "") } : r;
+  });
+  const data = { ...prev, byId, ...extra, updatedAt: new Date().toISOString() };
+  const { error } = await service.from("user_docs").upsert({ user_id: uid, doc_id: "feeds", data, updated_at: new Date().toISOString() }, { onConflict: "user_id,doc_id" });
+  if (error) throw error;
+  return byId;
+}
+async function runDaily(service: any) {
+  const started = Date.now(); let done = 0, failed = 0;
+  const { data: rows, error } = await service.from("user_docs").select("user_id,data").eq("doc_id", "watch");
+  if (error) { console.error("cron list", error.message); return; }
+  const users = (rows || []).map((r: any) => ({ uid: r.user_id, links: ((r.data?.links) || []).slice(0, 5).filter((l: any) => l && l.id && l.url) })).filter((u: any) => u.links.length);
+  const queue = users.slice();
+  const worker = async () => {
+    while (queue.length) {
+      if (Date.now() - started > 130000) { console.error("cron time limit, left", queue.length); return; } // 실행 시간 한도 안에서 멈춘다
+      const u = queue.shift();
+      try {
+        const { data: sd } = await service.from("user_docs").select("data").eq("user_id", u.uid).eq("doc_id", "state").maybeSingle();
+        const profile = sd?.data?.s?.profile || null;
+        const results = await Promise.all(u.links.map((l: any) => collect(l, profile).catch(() => ({ status: "error", fetchedAt: new Date().toISOString(), items: [], note: "가져오는 중 문제가 생겼다.", source: "manual" }))));
+        await saveFeeds(service, u.uid, u.links, results, { auto: { at: new Date().toISOString() } });
+        done++;
+      } catch (e) { failed++; console.error("cron user", (e as Error)?.message || e); }
+    }
+  };
+  await Promise.all([worker(), worker()]);
+  console.log(`cron done users=${done} failed=${failed} total=${users.length} ms=${Date.now() - started}`);
+}
+
 Deno.serve(async (req) => {
   const headers = { ...cors(req.headers.get("origin")), "Content-Type": "application/json" };
   if (req.method === "OPTIONS") return new Response("ok", { headers });
   const reply = (code: number, body: unknown) => new Response(JSON.stringify(body), { status: code, headers });
   try {
-    const jwt = (req.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "");
     const url = Deno.env.get("SUPABASE_URL")!;
     const service = createClient(url, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
+    const cronHeader = req.headers.get("x-cron-secret");
+    if (cronHeader !== null) {
+      if (!sameSecret(cronHeader, Deno.env.get("CRON_SECRET") || "")) return reply(401, { error: "cron_secret", message: "예약 실행 비밀값이 맞지 않는다." });
+      const job = runDaily(service);
+      // 응답은 바로 돌려주고, 수집은 뒤에서 계속한다
+      // deno-lint-ignore no-explicit-any
+      const rt = (globalThis as any).EdgeRuntime;
+      if (rt?.waitUntil) { rt.waitUntil(job); return reply(202, { ok: true, started: true }); }
+      await job; return reply(200, { ok: true });
+    }
+    const jwt = (req.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "");
     const { data: ud, error: ue } = await service.auth.getUser(jwt);
     if (ue || !ud?.user) return reply(401, { error: "login_required", message: "로그인해야 업데이트할 수 있다." });
     const uid = ud.user.id;
@@ -438,15 +494,9 @@ Deno.serve(async (req) => {
       if (u2 === -1) return reply(429, { error: "limit", message: "오늘 업데이트 3번을 모두 썼다. 내일 다시 할 수 있다.", used: DAILY_LIMIT, limit: DAILY_LIMIT });
       used = u2;
     }
-    const { data: fdoc } = await service.from("user_docs").select("data").eq("user_id", uid).eq("doc_id", "feeds").maybeSingle();
-    const prev = (fdoc?.data) || {};
-    const byId: Record<string, unknown> = {};
-    const ids = new Set(links.map((l: any) => l.id));
-    for (const [k, v] of Object.entries(prev.byId || {})) if (ids.has(k)) byId[k] = v;
-    links.forEach((l: any, i: number) => { byId[l.id] = results[i]; });
-    const data = { ...prev, byId, manual: { day, used, limit: DAILY_LIMIT }, updatedAt: new Date().toISOString() };
-    const { error: we } = await service.from("user_docs").upsert({ user_id: uid, doc_id: "feeds", data, updated_at: new Date().toISOString() }, { onConflict: "user_id,doc_id" });
-    if (we) return reply(500, { error: "save", message: "가져온 내용을 저장하지 못했다." });
+    let byId;
+    try { byId = await saveFeeds(service, uid, links, results, { manual: { day, used, limit: DAILY_LIMIT } }); }
+    catch { return reply(500, { error: "save", message: "가져온 내용을 저장하지 못했다." }); }
 
     return reply(200, { ok: true, used, limit: DAILY_LIMIT, counted: useful, byId });
   } catch (e) {

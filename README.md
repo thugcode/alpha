@@ -119,3 +119,14 @@ Claude 아티팩트였던 알파를 일반 웹사이트로 옮긴 버전이다. 
 사용자가 늘어 무료 한도가 모자라면 https://console.anthropic.com 에서 키(`sk-ant-…`)를 만들어 Secret `ANTHROPIC_API_KEY` 로 넣는다. 두 키가 모두 있으면 Claude를 쓴다. 결제 전에 **Settings → Limits** 에서 월 사용 한도를 정해 둔다.
 
 - 링크 하나를 업데이트할 때 AI를 두 번 부른다(핵심 고르기 → 요약).
+
+
+## 10. 내 알림 링크 매일 아침 자동 갱신 (한국 시간 07:00)
+
+1. Supabase → Edge Functions → **refresh-feeds → Code** 에 최신 `supabase/functions/refresh-feeds/index.ts` 를 붙여 넣고 **Deploy**.
+2. Supabase → **SQL Editor** → New query → `supabase/cron.sql` 을 통째로 붙여 넣고 **Run**.
+3. 맨 아래 결과 표에 나온 값(긴 영문·숫자)을 복사해서 **Edge Functions → Secrets** 에 Name `CRON_SECRET`, Value 에 붙여 넣고 저장한다.
+
+- 확인: SQL Editor 에서 `select * from cron.job;` 을 실행하면 `alpha-daily-feeds` 가 보인다. 실행 기록은 `select * from cron.job_run_details order by start_time desc limit 5;`
+- 바로 시험해 보려면 cron.sql 의 3번 안쪽 `select net.http_post(...)` 부분만 따로 실행한다. 1~2분 뒤 앱의 링크 카드에 오늘 날짜로 확인 시각이 찍힌다.
+- 자동 갱신은 사용자의 '지금 업데이트' 하루 3번 횟수를 쓰지 않는다. 한 번 실행에 약 2분까지만 일하므로, 사용자가 아주 많아지면 나눠서 실행하도록 바꿔야 한다.
