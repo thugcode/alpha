@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-01T08:30:00+09:00",
+ "updatedAt": "2026-11-02T08:30:00+09:00",
  "opportunities": [
   {
    "type": "인턴",
@@ -35,16 +35,6 @@
   },
   {
    "type": "인턴",
-   "title": "LS엠트론 2026년 4분기 신입인턴 채용",
-   "org": "LS엠트론",
-   "fields": [
-    "경영·인사"
-   ],
-   "deadline": "2026-11-01",
-   "url": "https://linkareer.com/activity/359173"
-  },
-  {
-   "type": "인턴",
    "title": "조선일보 편집국 뉴스 영상 편집 인턴",
    "org": "(주) 조선일보사",
    "fields": [
@@ -76,17 +66,6 @@
   },
   {
    "type": "인턴",
-   "title": "네이버제트 11월 전분야 체험형 인턴 2차",
-   "org": "네이버제트",
-   "fields": [
-    "IT·데이터·AI",
-    "기획·전략"
-   ],
-   "deadline": "2026-11-01",
-   "url": "https://linkareer.com/activity/359036"
-  },
-  {
-   "type": "인턴",
    "title": "링글 브랜드&캠페인 마케팅 전환형 인턴",
    "org": "링글잉글리시에듀케이션서비스",
    "fields": [
@@ -94,26 +73,6 @@
    ],
    "deadline": "2026-11-08",
    "url": "https://linkareer.com/activity/359035"
-  },
-  {
-   "type": "인턴",
-   "title": "네이버웹툰 캐릭터 AI 모델 기획·테스트 체험형 인턴",
-   "org": "네이버웹툰",
-   "fields": [
-    "IT·데이터·AI"
-   ],
-   "deadline": "2026-11-01",
-   "url": "https://linkareer.com/activity/358977"
-  },
-  {
-   "type": "대외활동",
-   "title": "피에브 앰버서더 1기",
-   "org": "피에브",
-   "fields": [
-    "마케팅·광고"
-   ],
-   "deadline": "2026-11-01",
-   "url": "https://linkareer.com/activity/358933"
   },
   {
    "type": "대외활동",
@@ -138,16 +97,6 @@
   },
   {
    "type": "대외활동",
-   "title": "반크 디지털 메타버스 AI 외교관 17기",
-   "org": "사이버외교사절단 반크",
-   "fields": [
-    "사회·공공"
-   ],
-   "deadline": "2026-11-01",
-   "url": "https://linkareer.com/activity/358849"
-  },
-  {
-   "type": "대외활동",
    "title": "씨게이트 서포터즈 6기 & 라씨 서포터즈 5기",
    "org": "(주)브레인이노베이션",
    "fields": [
@@ -155,17 +104,6 @@
    ],
    "deadline": "2026-11-03",
    "url": "https://linkareer.com/activity/358844"
-  },
-  {
-   "type": "대외활동",
-   "title": "미래내일일경험 패션뷰티유통직무 부산 3기",
-   "org": "(사)한국ICT패션뷰티산업협회",
-   "fields": [
-    "영업",
-    "마케팅·광고"
-   ],
-   "deadline": "2026-11-01",
-   "url": "https://linkareer.com/activity/358817"
   },
   {
    "type": "대외활동",
@@ -348,17 +286,6 @@
    "url": "https://linkareer.com/activity/357632"
   },
   {
-   "type": "대외활동",
-   "title": "K-핸드메이드페어 2026 온라인 서포터즈 4기",
-   "org": "(주)한국국제전시",
-   "fields": [
-    "콘텐츠·영상",
-    "마케팅·광고"
-   ],
-   "deadline": "2026-11-01",
-   "url": "https://www.contestkorea.com/sub/view.php?int_gbn=2&Txt_bcode=040110001&str_no=202610210022"
-  },
-  {
    "type": "공모전",
    "title": "우리 모두의 R&D 공모전",
    "org": "한국산업기술기획평가원",
@@ -453,17 +380,6 @@
    ],
    "deadline": "2026-11-06",
    "url": "https://job.alio.go.kr/recruitview.do?idx=306235"
-  },
-  {
-   "type": "대외활동",
-   "title": "제6기 북극케어 대학생 서포터즈",
-   "org": "해양수산부·한국해양수산개발원",
-   "fields": [
-    "사회·공공",
-    "콘텐츠·영상"
-   ],
-   "deadline": "2026-11-01",
-   "url": "https://www.contestkorea.com/sub/view.php?int_gbn=2&Txt_bcode=040110001&str_no=202610190067"
   },
   {
    "type": "대외활동",
@@ -609,24 +525,12 @@
     "맥락: 4차전은 탬파베이가 연장 12회 4-3으로 이겨 우승 확정을 한 경기 미뤘다"
    ],
    "url": "https://www.newsis.com/view/NISX20261029_0003846357"
-  },
-  {
-   "tag": "KBO",
-   "t": "삼성, KIA에 6-4 승리로 PO 2승 1패",
-   "s": "삼성이 플레이오프 3차전에서 KIA를 6-4로 꺾고 2년 만의 한국시리즈 진출까지 1승만 남겼다.",
-   "points": [
-    "결과: 삼성 6-4 KIA, 1차전 패배 뒤 2연승으로 시리즈 2승 1패가 됐다",
-    "기록: 1차전은 KIA가 5-1로 먼저 이겼다",
-    "다음: 삼성이 1승을 더하면 11월 2일 수원에서 정규시즌 1위 KT와 한국시리즈 1차전을 치른다",
-    "맥락: 한국시리즈 일정은 11월 2일부터 10일까지로 잡혀 있다"
-   ],
-   "url": "https://www.mediafine.co.kr/news/articleView.html?idxno=94042"
   }
  ],
  "tracks": {
   "military": {
    "name": "군 장병",
-   "updatedAt": "2026-11-01T08:30:00+09:00",
+   "updatedAt": "2026-11-02T08:30:00+09:00",
    "oppNote": "현역 장병·간부 기준이다. 제대군인지원센터 프로그램은 복무 기간 등 대상 조건이 있다. 공모전·대외활동은 온라인으로 참여할 수 있는 것을 골랐고, 장병 참가 가능 여부는 공고에서 확인한다.",
    "opportunities": [
     {
@@ -759,17 +663,6 @@
      ],
      "deadline": "2026-11-13",
      "url": "https://linkareer.com/activity/357632"
-    },
-    {
-     "type": "대외활동",
-     "title": "K-핸드메이드페어 2026 온라인 서포터즈 4기",
-     "org": "(주)한국국제전시",
-     "fields": [
-      "콘텐츠·영상",
-      "마케팅·광고"
-     ],
-     "deadline": "2026-11-01",
-     "url": "https://www.contestkorea.com/sub/view.php?int_gbn=2&Txt_bcode=040110001&str_no=202610210022"
     }
    ],
    "sections": [
@@ -888,7 +781,7 @@
   },
   "civilian": {
    "name": "군무원",
-   "updatedAt": "2026-11-01T08:30:00+09:00",
+   "updatedAt": "2026-11-02T08:30:00+09:00",
    "oppNote": "근무와 병행할 수 있는 온라인 공모전·대외활동을 모았다. 겸직·외부 활동은 소속 기관 규정을 먼저 확인한다.",
    "opportunities": [
     {
@@ -1110,7 +1003,7 @@
   },
   "public": {
    "name": "공무원·공기업 준비",
-   "updatedAt": "2026-11-01T08:30:00+09:00",
+   "updatedAt": "2026-11-02T08:30:00+09:00",
    "oppNote": "공공기관·정부·지자체가 여는 인턴, 서포터즈, 공모전을 모았다. 공공 분야 대외활동 경력은 공기업 서류와 면접에서 활용하기 좋다.",
    "opportunities": [
     {
@@ -1165,17 +1058,6 @@
      ],
      "deadline": "2026-11-08",
      "url": "https://www.contestkorea.com/sub/view.php?int_gbn=2&Txt_bcode=040110001&str_no=202610200018"
-    },
-    {
-     "type": "대외활동",
-     "title": "제6기 북극케어 대학생 서포터즈",
-     "org": "해양수산부·한국해양수산개발원",
-     "fields": [
-      "사회·공공",
-      "콘텐츠·영상"
-     ],
-     "deadline": "2026-11-01",
-     "url": "https://www.contestkorea.com/sub/view.php?int_gbn=2&Txt_bcode=040110001&str_no=202610190067"
     },
     {
      "type": "대외활동",
