@@ -1,219 +1,691 @@
 {
- "updatedAt": "2026-11-24T08:10:00+09:00",
+ "updatedAt": "2026-11-25T08:11:00+09:00",
  "opportunities": [
   {
-   "type": "공모전",
-   "title": "실손24 영상 공모전",
-   "org": "실손24",
+   "type": "인턴",
+   "title": "DevOps 엔지니어 채용연계형 인턴",
+   "org": "카카오뱅크",
    "fields": [
-    "콘텐츠·영상",
-    "금융·경제"
+    "IT·데이터·AI"
    ],
-   "deadline": "2026-11-30",
-   "url": "https://linkareer.com/activity/358840"
-  },
-  {
-   "type": "공모전",
-   "title": "남이섬 가을 단풍 사진 공모전",
-   "org": "남이섬",
-   "fields": [
-    "콘텐츠·영상",
-    "문화·여행"
-   ],
-   "deadline": "2026-11-30",
-   "url": "https://linkareer.com/activity/357813"
-  },
-  {
-   "type": "공모전",
-   "title": "디지털 공감 숏폼 공모전",
-   "org": "한국인터넷기업협회",
-   "fields": [
-    "콘텐츠·영상"
-   ],
-   "deadline": "2026-12-05",
-   "url": "https://linkareer.com/activity/358867"
-  },
-  {
-   "type": "대외활동",
-   "title": "청년 정책패널",
-   "org": "국민권익위원회",
-   "fields": [
-    "사회·공공"
-   ],
-   "deadline": "2026-12-17",
-   "url": "https://linkareer.com/activity/350395"
+   "deadline": "2026-11-25",
+   "url": "https://recruit.kakaobank.com/jobs/271437"
   },
   {
    "type": "인턴",
-   "title": "강남언니 Android 개발 체험형 인턴",
-   "org": "(주)힐링페이퍼",
+   "title": "금융감사부문 IT 시스템 및 규제 프로젝트 인턴",
+   "org": "EY한영",
+   "fields": [
+    "금융·경제",
+    "IT·데이터·AI"
+   ],
+   "deadline": "2026-11-26",
+   "url": "https://eycareers-kr.recruiter.co.kr/career/jobs/134830"
+  },
+  {
+   "type": "인턴",
+   "title": "2027년 동계 각 부문 인턴",
+   "org": "에어퍼스트",
+   "fields": [
+    "경영·인사"
+   ],
+   "deadline": "2026-11-26",
+   "url": "https://airfirst.career.greetinghr.com/ko/o/244341"
+  },
+  {
+   "type": "인턴",
+   "title": "금융감사부문 디지털 감사 & AI 리스크 분석 인턴",
+   "org": "EY한영",
+   "fields": [
+    "금융·경제",
+    "IT·데이터·AI"
+   ],
+   "deadline": "2026-11-29",
+   "url": "https://eycareers-kr.recruiter.co.kr/career/jobs/133364"
+  },
+  {
+   "type": "인턴",
+   "title": "2027 채용연계형 인턴",
+   "org": "LS ITC",
+   "fields": [
+    "IT·데이터·AI"
+   ],
+   "deadline": "2026-11-29",
+   "url": "https://lsitc.recruiter.co.kr/career/jobs/134608"
+  },
+  {
+   "type": "인턴",
+   "title": "2027 채용연계형 인턴 (게임기획)",
+   "org": "네오플",
+   "fields": [
+    "게임",
+    "기획·전략"
+   ],
+   "deadline": "2026-11-30",
+   "url": "https://recruit-neoplayer.co.kr/"
+  },
+  {
+   "type": "인턴",
+   "title": "AI센터 AI QA 자동화 기술 R&D 인턴(6개월)",
+   "org": "스마일게이트",
+   "fields": [
+    "IT·데이터·AI",
+    "게임"
+   ],
+   "deadline": "2026-11-30",
+   "url": "https://careers.smilegate.com/apply/announce/view?seq=6262"
+  },
+  {
+   "type": "인턴",
+   "title": "2027 상반기 체험형 인턴십",
+   "org": "안랩",
+   "fields": [
+    "IT·데이터·AI"
+   ],
+   "deadline": "2026-11-30",
+   "url": "https://ahnlab.recruiter.co.kr/career/jobs/134679"
+  },
+  {
+   "type": "인턴",
+   "title": "하나금융그룹 GLN 채용연계형 인턴(2027)",
+   "org": "지엘엔인터내셔널",
+   "fields": [
+    "금융·경제"
+   ],
+   "deadline": "2026-11-30",
+   "url": "https://glninternational.ninehire.site/recruit"
+  },
+  {
+   "type": "인턴",
+   "title": "고객서비스실 정규직 전환형 인턴",
+   "org": "카카오뱅크",
+   "fields": [
+    "금융·경제",
+    "영업"
+   ],
+   "deadline": "2026-12-01",
+   "url": "https://recruit.kakaobank.com/jobs/272465"
+  },
+  {
+   "type": "인턴",
+   "title": "AI 프로덕트 디자이너 채용연계형 인턴",
+   "org": "카카오뱅크",
+   "fields": [
+    "디자인",
+    "IT·데이터·AI"
+   ],
+   "deadline": "2026-12-04",
+   "url": "https://recruit.kakaobank.com/jobs/273021"
+  },
+  {
+   "type": "인턴",
+   "title": "2026 AI Native 채용형 인턴",
+   "org": "OK금융그룹",
+   "fields": [
+    "금융·경제",
+    "IT·데이터·AI"
+   ],
+   "deadline": "2026-12-06",
+   "url": "https://recruit.okfngroup.com/ko/o/245190"
+  },
+  {
+   "type": "인턴",
+   "title": "2027 상반기 채용연계형 인턴십 백엔드 서버 개발",
+   "org": "네이버웹툰",
+   "fields": [
+    "IT·데이터·AI"
+   ],
+   "deadline": "2026-12-06",
+   "url": "https://recruit.webtoonscorp.com/rcrt/view.do?annoId=30005648&sw=&subJobCdArr=&sysCompanyCdArr=&empTypeCdArr=0010%2C0040&entTypeCdArr=&workAreaCdArr="
+  },
+  {
+   "type": "인턴",
+   "title": "2026년 겨울방학 대학생 행정인턴(60명)",
+   "org": "진주시",
+   "fields": [
+    "사회·공공"
+   ],
+   "deadline": "2026-12-06",
+   "url": "https://www.gnnews.co.kr/news/articleView.html?idxno=650255"
+  },
+  {
+   "type": "인턴",
+   "title": "AI Native 인증 서비스 기획자 채용연계형 인턴",
+   "org": "카카오뱅크",
+   "fields": [
+    "기획·전략",
+    "금융·경제"
+   ],
+   "deadline": "2026-12-07",
+   "url": "https://recruit.kakaobank.com/jobs/273031"
+  },
+  {
+   "type": "인턴",
+   "title": "AI Engineer 체험형 인턴",
+   "org": "네이버웹툰",
+   "fields": [
+    "IT·데이터·AI"
+   ],
+   "deadline": "2026-12-13",
+   "url": "https://recruit.webtoonscorp.com/rcrt/view.do?annoId=30005739&lang=ko"
+  },
+  {
+   "type": "인턴",
+   "title": "검색 품질 운영 인턴(DQ)",
+   "org": "카카오스타일",
    "fields": [
     "IT·데이터·AI"
    ],
    "deadline": null,
-   "url": "https://linkareer.com/activity/359283"
+   "url": "https://career.kakaostyle.com/job_posting/GHp916pw"
+  },
+  {
+   "type": "인턴",
+   "title": "AI Research Div. Research Scientist 인턴",
+   "org": "크래프톤",
+   "fields": [
+    "연구",
+    "IT·데이터·AI",
+    "게임"
+   ],
+   "deadline": null,
+   "url": "https://job-boards.greenhouse.io/krafton/jobs/8908460002"
+  },
+  {
+   "type": "대외활동",
+   "title": "K-콘텐츠 관광마케팅 기초 아카데미 모집",
+   "org": "(주)엘투플랜",
+   "fields": [
+    "마케팅·광고",
+    "문화·여행"
+   ],
+   "deadline": "2026-11-25",
+   "url": "https://linkareer.com/activity/363233"
+  },
+  {
+   "type": "대외활동",
+   "title": "제15기 누리소통기자단 모집",
+   "org": "식품의약품안전처",
+   "fields": [
+    "콘텐츠·영상",
+    "사회·공공"
+   ],
+   "deadline": "2026-11-25",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112136"
+  },
+  {
+   "type": "대외활동",
+   "title": "마음한켠 또토링 멘토 모집",
+   "org": "사랑의열매",
+   "fields": [
+    "사회·공공"
+   ],
+   "deadline": "2026-11-25",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112112"
+  },
+  {
+   "type": "대외활동",
+   "title": "큐어소나 대학생 인스타그램 서포터즈 6기",
+   "org": "큐어소나",
+   "fields": [
+    "마케팅·광고",
+    "콘텐츠·영상"
+   ],
+   "deadline": "2026-11-26",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112298"
+  },
+  {
+   "type": "대외활동",
+   "title": "2027 남이섬세계책나라축제 대학생 홍보 서포터즈",
+   "org": "남이섬",
+   "fields": [
+    "마케팅·광고",
+    "문화·여행"
+   ],
+   "deadline": "2026-11-26",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112301"
+  },
+  {
+   "type": "대외활동",
+   "title": "제10기 우산봉사단 신규 봉사단원 모집",
+   "org": "우산봉사단",
+   "fields": [
+    "사회·공공"
+   ],
+   "deadline": "2026-11-27",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112121"
+  },
+  {
+   "type": "대외활동",
+   "title": "카페디저트페어 2027 온라인 서포터즈 카디크루 1기",
+   "org": "카페디저트페어",
+   "fields": [
+    "마케팅·광고",
+    "콘텐츠·영상"
+   ],
+   "deadline": "2026-12-01",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112423"
+  },
+  {
+   "type": "대외활동",
+   "title": "AI다나와 에디터 모집(30명)",
+   "org": "다나와",
+   "fields": [
+    "콘텐츠·영상",
+    "IT·데이터·AI"
+   ],
+   "deadline": "2026-12-02",
+   "url": "https://linkareer.com/activity/365963"
+  },
+  {
+   "type": "대외활동",
+   "title": "부산광역시일시청소년쉼터 제19기 아웃리치자원봉사단",
+   "org": "부산광역시일시청소년쉼터",
+   "fields": [
+    "사회·공공"
+   ],
+   "deadline": "2026-12-03",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112335"
+  },
+  {
+   "type": "대외활동",
+   "title": "2027 공소청 국민기자단 모집",
+   "org": "공소청",
+   "fields": [
+    "콘텐츠·영상",
+    "사회·공공"
+   ],
+   "deadline": "2026-12-08",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112485"
+  },
+  {
+   "type": "대외활동",
+   "title": "제2기 청년홍보대사 모집",
+   "org": "한국건설기술인협회",
+   "fields": [
+    "마케팅·광고"
+   ],
+   "deadline": "2026-12-08",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112312"
+  },
+  {
+   "type": "대외활동",
+   "title": "대학생 철강 홍보 서포터즈 철크크 1기",
+   "org": "한국철강협회",
+   "fields": [
+    "마케팅·광고",
+    "콘텐츠·영상"
+   ],
+   "deadline": "2026-12-09",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112426"
+  },
+  {
+   "type": "공모전",
+   "title": "국회 미래세대 미래의제 공모전",
+   "org": "국회미래연구원",
+   "fields": [
+    "사회·공공",
+    "연구"
+   ],
+   "deadline": "2026-11-25",
+   "url": "https://linkareer.com/activity/358929"
+  },
+  {
+   "type": "공모전",
+   "title": "첨단 산업 용어 다듬기 공모전",
+   "org": "건강보험심사평가원",
+   "fields": [
+    "사회·공공"
+   ],
+   "deadline": "2026-11-26",
+   "url": "https://linkareer.com/activity/361942"
+  },
+  {
+   "type": "공모전",
+   "title": "제1회 Daum AI 숏드라마 시나리오 공모전",
+   "org": "주식회사 다음",
+   "fields": [
+    "콘텐츠·영상",
+    "IT·데이터·AI"
+   ],
+   "deadline": "2026-11-26",
+   "url": "https://linkareer.com/activity/362797"
+  },
+  {
+   "type": "공모전",
+   "title": "2026년 대국민 재정교육 아이디어 공모전",
+   "org": "기획예산처",
+   "fields": [
+    "금융·경제",
+    "사회·공공"
+   ],
+   "deadline": "2026-11-27",
+   "url": "https://linkareer.com/activity/361051"
+  },
+  {
+   "type": "공모전",
+   "title": "2026년 K-Petro 대국민 혁신 아이디어 공모전",
+   "org": "한국석유관리원",
+   "fields": [
+    "기획·전략",
+    "사회·공공"
+   ],
+   "deadline": "2026-11-27",
+   "url": "https://linkareer.com/activity/362688"
+  },
+  {
+   "type": "공모전",
+   "title": "2026 내가 소개하는 서울 숏폼 공모전",
+   "org": "서울특별시",
+   "fields": [
+    "콘텐츠·영상",
+    "문화·여행"
+   ],
+   "deadline": "2026-11-27",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112153"
+  },
+  {
+   "type": "공모전",
+   "title": "건학 50주년 동명대학교 캐릭터 공모전",
+   "org": "동명대학교",
+   "fields": [
+    "디자인"
+   ],
+   "deadline": "2026-11-27",
+   "url": "https://linkareer.com/activity/363652"
+  },
+  {
+   "type": "공모전",
+   "title": "2026 서울관광 프롬프톤",
+   "org": "서울관광재단",
+   "fields": [
+    "IT·데이터·AI",
+    "문화·여행"
+   ],
+   "deadline": "2026-11-29",
+   "url": "https://linkareer.com/activity/363459"
+  },
+  {
+   "type": "공모전",
+   "title": "2026 포항 MICE 창업 해커톤",
+   "org": "포항시",
+   "fields": [
+    "기획·전략",
+    "문화·여행"
+   ],
+   "deadline": "2026-11-30",
+   "url": "https://linkareer.com/activity/365981"
+  },
+  {
+   "type": "공모전",
+   "title": "통합데이터플랫폼(원-윈도우) 활용 아이디어 기획 공모전",
+   "org": "과학기술정보통신부",
+   "fields": [
+    "IT·데이터·AI",
+    "기획·전략"
+   ],
+   "deadline": "2026-11-30",
+   "url": "https://linkareer.com/activity/365986"
+  },
+  {
+   "type": "공모전",
+   "title": "2026년 FiPA 3S 아이디어 공모전",
+   "org": "한국어촌어항공단",
+   "fields": [
+    "기획·전략",
+    "사회·공공"
+   ],
+   "deadline": "2026-12-03",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112433"
+  },
+  {
+   "type": "공모전",
+   "title": "2027 MOBIS Robotics Challenge",
+   "org": "현대모비스",
+   "fields": [
+    "IT·데이터·AI",
+    "연구"
+   ],
+   "deadline": "2026-12-04",
+   "url": "https://linkareer.com/activity/364594"
+  },
+  {
+   "type": "공모전",
+   "title": "밀양아리랑대축제 AI 포스터 공모전",
+   "org": "밀양시",
+   "fields": [
+    "디자인",
+    "문화·여행"
+   ],
+   "deadline": "2026-12-11",
+   "url": "https://linkareer.com/activity/365775"
+  },
+  {
+   "type": "공모전",
+   "title": "2026 국가시범도시 AI 아이디어·기술 공모전",
+   "org": "국토교통부",
+   "fields": [
+    "IT·데이터·AI",
+    "사회·공공"
+   ],
+   "deadline": "2026-12-14",
+   "url": "https://linkareer.com/activity/364817"
+  },
+  {
+   "type": "공모전",
+   "title": "제1회 제주어 AI 음악 경진대회",
+   "org": "월드 AI 사운드 마스터즈 협회",
+   "fields": [
+    "콘텐츠·영상",
+    "IT·데이터·AI"
+   ],
+   "deadline": "2026-12-20",
+   "url": "https://linkareer.com/activity/365707"
+  },
+  {
+   "type": "공모전",
+   "title": "제3회 스마트그리드 아이디어 공모전",
+   "org": "한국스마트그리드협회",
+   "fields": [
+    "기획·전략",
+    "연구"
+   ],
+   "deadline": "2026-12-24",
+   "url": "https://linkareer.com/activity/365700"
+  },
+  {
+   "type": "공모전",
+   "title": "제1회 서울국제AI광고영상제(SIADAFF)",
+   "org": "(주)케이미디어진흥원",
+   "fields": [
+    "마케팅·광고",
+    "콘텐츠·영상"
+   ],
+   "deadline": "2027-01-07",
+   "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112508"
+  },
+  {
+   "type": "공모전",
+   "title": "2027 Superb AI X BDAI Vision AI 해커톤",
+   "org": "Superb AI × BDAI",
+   "fields": [
+    "IT·데이터·AI"
+   ],
+   "deadline": "2027-01-10",
+   "url": "https://linkareer.com/activity/365130"
   }
  ],
  "markets": [
   {
    "name": "코스피",
-   "value": "4,708.54",
-   "change": "-161.42",
-   "pct": "-3.31%",
-   "dir": -1,
-   "asOf": "11.23 마감"
+   "value": "5,006.03",
+   "change": "+297.49",
+   "pct": "+6.32%",
+   "dir": 1,
+   "asOf": "11.24 마감"
   },
   {
    "name": "코스닥",
-   "value": "635.45",
-   "change": "-10.23",
-   "pct": "-1.58%",
-   "dir": -1,
-   "asOf": "11.23 마감"
+   "value": "665.88",
+   "change": "+30.43",
+   "pct": "+4.79%",
+   "dir": 1,
+   "asOf": "11.24 마감"
   },
   {
    "name": "나스닥 종합",
-   "value": "24,089.56",
-   "change": "+1,471.82",
-   "pct": "+6.51%",
-   "dir": 1,
-   "asOf": "11.23 미국 마감"
+   "value": "23,733.54",
+   "change": "-356.02",
+   "pct": "-1.48%",
+   "dir": -1,
+   "asOf": "11.24 미국 마감"
   },
   {
    "name": "S&P 500",
-   "value": "7,237.17",
-   "change": "+326.78",
-   "pct": "+4.73%",
-   "dir": 1,
-   "asOf": "11.23 미국 마감"
+   "value": "7,201.09",
+   "change": "-36.08",
+   "pct": "-0.50%",
+   "dir": -1,
+   "asOf": "11.24 미국 마감"
   },
   {
    "name": "다우존스",
-   "value": "49,595.31",
-   "change": "+1,447.98",
-   "pct": "+3.01%",
+   "value": "50,018.70",
+   "change": "+423.39",
+   "pct": "+0.85%",
    "dir": 1,
-   "asOf": "11.23 미국 마감"
+   "asOf": "11.24 미국 마감"
   },
   {
    "name": "달러/원",
-   "value": "1,345.90",
-   "change": "+9.70",
-   "pct": "+0.73%",
-   "dir": 1,
-   "asOf": "11.23 마감"
+   "value": "1,342.40",
+   "change": "-3.50",
+   "pct": "-0.26%",
+   "dir": -1,
+   "asOf": "11.24 마감"
   }
  ],
- "marketNote": "23일 코스피는 미국발 AI 반도체 매도 여파로 장중 5.8%까지 밀렸다가 3.31% 내린 4,708.54에 마감했고, 외국인은 7거래일 연속 순매도했다. 같은 날 밤 뉴욕에서는 젠슨 황 엔비디아 CEO 복귀 소식에 엔비디아가 31.5% 뛰면서 나스닥이 6.51% 급등해 지난해 4월 이후 최대 일일 상승률을 기록했다.",
+ "marketNote": "젠슨 황의 엔비디아 복귀 소식에 24일 코스피가 6% 넘게 뛰며 3거래일 만에 5,000선을 되찾았고 외국인도 8거래일 만에 순매수로 돌아섰다. 다만 같은 날 뉴욕에서는 반도체주 차익실현으로 나스닥이 1.48% 밀린 반면 다우는 처음으로 5만선 위에서 마감해 업종별로 엇갈렸다.",
  "econ": [
   {
-   "t": "엔비디아, SEC 회계 조사 보도에 하루 14% 폭락",
-   "s": "미 증권거래위원회가 엔비디아의 회계 처리를 들여다보고 있다는 로이터 보도가 나오면서 20일 주가가 14% 급락했고, 조사 시점과 구체적 쟁점은 아직 확인되지 않았다.",
+   "t": "젠슨 황 복귀 하루 만에 엔비디아 공매도 세력 16조원대 평가손실",
+   "s": "오텍스 집계를 인용한 로이터 보도에 따르면 엔비디아 주가 급등으로 공매도 투자자들이 하루 약 122억달러를 잃어 2019년 이후 최대 일일 손실을 냈지만, 10월 말 이후 누적으로는 여전히 약 140억달러 이익 상태다.",
    "src": "한국경제",
-   "url": "https://www.hankyung.com/article/202611211609i"
+   "url": "https://www.hankyung.com/article/202611245745H"
   },
   {
-   "t": "AMD도 대중 수출통제 위반 의혹…공매도 보고서에 7.7% 하락",
-   "s": "미국 제재 명단에 오른 중국 서버업체 제품에서 AMD 펌웨어가 발견됐다는 공매도 보고서가 나오자 주가가 7.7% 떨어졌고, AMD는 의혹을 부인했다.",
-   "src": "글로벌이코노믹",
-   "url": "https://www.g-enews.com/article/Securities/2026/11/202611200652504999e250e8e188_1"
-  },
-  {
-   "t": "대만은 공매도 규제 강화, 한국 당국은 아직 침묵",
-   "s": "대만 금융당국이 23일부터 직전 종가 아래 공매도를 금지하는 등 5개 안정 대책을 내놓은 반면 국내 당국은 별다른 방침을 밝히지 않아 대응 논란이 커지고 있다.",
+   "t": "FT, 트럼프가 엔비디아 급등으로 최대 1500만달러 평가이익 추정",
+   "s": "파이낸셜타임스가 재산공개 자료를 토대로 트럼프 대통령의 엔비디아 보유 주식을 최대 37만주로 추정하고 평가이익을 최대 약 221억원으로 계산했으나, 10월 이후 거래 내역이 공개되지 않아 실제 보유량은 확인되지 않았다.",
    "src": "파이낸셜뉴스",
-   "url": "https://www.fnnews.com/news/202611212359102685"
+   "url": "https://www.fnnews.com/news/202611241313528958"
   },
   {
-   "t": "앤트로픽, 상장 이틀째 8.5% 급락해 공모가 근처까지 밀려",
-   "s": "앤트로픽 주가가 20일 88.91달러로 마감하며 첫날 상승분 대부분을 반납했고, 시가총액이 약 1조1600억달러로 줄어 미국 기업 순위 12위로 내려갔다.",
-   "src": "글로벌이코노믹",
-   "url": "https://www.g-enews.com/article/Global-Biz/2026/11/20261121094833267112616b072_1"
+   "t": "11월 소비자심리지수 103.1로 두 달 연속 하락",
+   "s": "한국은행 조사에서 소비자심리지수가 전월보다 2.3포인트 내렸고, 증시 조정과 대출금리 상승 여파로 주택가격전망지수는 6포인트 떨어진 118을 기록해 8개월 만에 가장 크게 하락했다.",
+   "src": "서울신문",
+   "url": "https://seoul.co.kr/news/economy/finance/2026/11/24/20261124500320"
   },
   {
-   "t": "한국 누적 수출 1조달러 돌파, 세계 네 번째",
-   "s": "19일 오후 올해 누적 수출액이 1조달러를 넘어 독일·미국·중국에 이어 네 번째 기록을 세웠고, 정부는 연간 수출을 1조1700억달러로 내다봤다.",
-   "src": "전자신문",
-   "url": "https://www.etnews.com/20261119000295"
+   "t": "채권 전문가 54%, 이번 주 금통위 기준금리 인상 예상",
+   "s": "금융투자협회 설문에서 응답자 100명 중 54명이 26일 금통위의 금리 인상을 점쳤고, 물가 부담과 미 연준의 12월 인상 기대 탓에 종합 채권시장지표는 78.7로 떨어졌다.",
+   "src": "이투데이",
+   "url": "https://www.etoday.co.kr/news/view/2652153"
+  },
+  {
+   "t": "젠슨 황, 다음 달 1일 미 하원 위원회 비공개 면담 출석",
+   "s": "복귀한 젠슨 황 엔비디아 CEO가 12월 1일 하원 외교·미중전략경쟁·정보 3개 위원회의 비공개 면담에 나설 예정이어서 같은 기간 워싱턴에서 열리는 GTC DC 행사와 일정이 겹치게 됐다.",
+   "src": "파이낸셜뉴스",
+   "url": "https://www.fnnews.com/news/202611250137256308"
   }
  ],
  "world": [
   {
-   "t": "트럼프, 이란과 핵 보유 막는 영구 합의 추진 재확인",
-   "s": "트럼프 대통령은 후임 정부에서도 유지될 영구적 핵 합의가 아니면 받아들이지 않겠다는 뜻을 밝혔고, 전쟁 재개 결정은 서두르지 않겠다고 했다.",
+   "t": "NBC, 미군이 이란 지도부 겨냥한 참수 작전 검토 중이라고 보도",
+   "s": "NBC는 미군이 이란 공격 재개에 대비해 모즈타바 하메네이 등 정권 수뇌부 제거 방안을 다시 논의하고 있다고 전했으며, 내부에서는 협상이 더 어려워질 수 있다는 반대 의견도 나온 것으로 알려졌다.",
+   "src": "한국경제",
+   "url": "https://www.hankyung.com/article/2026112581317"
+  },
+  {
+   "t": "트럼프, 새해까지 이란과 합의 없으면 군사 공격 가능성 경고",
+   "s": "트럼프 대통령은 폭스뉴스 인터뷰에서 이란과의 협상이 성과가 없다고 평가하며 새해 이후 공격을 지시할 수 있다고 밝혔고, 미국은 이란 항구 해상 봉쇄를 이어가고 있다.",
    "src": "파이낸셜뉴스",
-   "url": "https://fnnews.com/news/202611220333083525"
+   "url": "https://www.fnnews.com/news/202611230520487264"
   },
   {
-   "t": "미·중·러 정상회담서 한반도 위험 대응도 논의",
-   "s": "트럼프 대통령은 중국 선전에서 열린 3자 정상회담에서 한반도 위험 대응을 다뤘다고 밝혔지만, 구체적으로 어떤 위험인지는 설명하지 않았다.",
-   "src": "네이트 뉴스",
-   "url": "https://m.news.nate.com/view/20261121n04316"
+   "t": "젤렌스키, 미국이 내년 1월 전 종전 합의를 서두르고 있다고 밝혀",
+   "s": "젤렌스키 대통령은 블룸버그 인터뷰에서 미국 특사 쿠슈너와 위트코프가 가능하면 1월 이전에 합의를 원한다고 전하며 우크라이나가 상당한 양보 압박을 받고 있다고 말했다.",
+   "src": "뉴스1",
+   "url": "https://www.news1.kr/world/europe/6364880"
   },
   {
-   "t": "젤렌스키, 3국 회담에서 영토 재획정은 없었다고 주장",
-   "s": "젤렌스키 대통령은 푸틴이 국경을 다시 긋는 구상을 원했으나 실패했다고 평가했고, 회담 선언문에는 우크라이나 관련 합의가 빠졌다.",
-   "src": "네이트 뉴스",
-   "url": "https://m.news.nate.com/view/20261122n00822"
+   "t": "12월 마이애미 G20, 미·러·우 3자 종전 회담 무대 될지 주목",
+   "s": "다음 달 14~15일 트럼프 소유 도랄 리조트에서 열리는 G20에 푸틴 대통령은 초청됐지만 젤렌스키 대통령은 아직 초청받지 못했고, 독일은 우크라이나 참여를 미국에 요구했다.",
+   "src": "세계일보",
+   "url": "https://www.segye.com/newsView/20261122508786"
   },
   {
-   "t": "IAEA, 우크라이나 원전 전력선 차단으로 출력 감소",
-   "s": "국제원자력기구는 군사 활동 여파로 우크라이나 원전 한 곳의 송전선 2개가 끊겨 출력을 낮췄다며 원자력 안전 위협을 경고했다.",
-   "src": "네이트 뉴스",
-   "url": "https://m.news.nate.com/view/20261122n00549"
-  },
-  {
-   "t": "미·중·러 회담 뒤 유럽·일본 등 미국 동맹들 우려 확산",
-   "s": "3국 협의가 정례화되면 동맹 체제가 약해질 수 있다는 걱정이 유럽과 일본에서 나왔고, 다카이치 총리는 미일동맹의 중요성을 다시 강조했다.",
-   "src": "네이트 뉴스",
-   "url": "https://m.news.nate.com/view/20261121n00472"
+   "t": "베네수엘라, 공공부채 2375억달러 공개하고 채무조정 착수",
+   "s": "베네수엘라 정부는 24일 거시경제 계획서에서 공공부채가 지난해 말 GDP의 242%에 이른다고 밝히고 모든 채권자가 참여하는 채무조정을 추진하겠다고 했지만, 구체적 상환 분석은 빠졌다.",
+   "src": "재경일보",
+   "url": "https://news.jkn.co.kr/post/1120176"
   }
  ],
  "sports": [
   {
-   "tag": "EPL",
-   "t": "브렌트퍼드, 10명 싸운 에버턴 4-0 완파",
-   "s": "브렌트퍼드가 23일 홈에서 키언 루이스포터의 멀티골을 앞세워 에버턴을 4-0으로 꺾고 리그 6위로 올라섰다.",
+   "tag": "MLS",
+   "t": "손흥민 침묵 속 LAFC, 정상빈의 세인트루이스에 PO 1차전 2-3 패",
+   "s": "LAFC가 24일(한국시간) 세인트루이스 원정에서 열린 MLS컵 플레이오프 1라운드 1차전에서 정상빈에게 1골 1도움을 허용하며 2-3으로 졌다.",
    "points": [
-    "결과: 브렌트퍼드가 23일(현지시간) 홈 Gtech 커뮤니티 스타디움에서 에버턴을 4-0으로 이겼다.",
-    "인물: 루이스포터가 전반 23분과 그 직후 3분 사이에 굴절 골 두 개를 넣었다.",
-    "화제: 에버턴 주장 제임스 타코우스키가 VAR 판독 끝에 퇴장당해 다음 머지사이드 더비에 못 나온다.",
-    "기록: 후반 야넬트와 교체 투입된 파비우 카르발류가 한 골씩 보탰다.",
-    "맥락: 데이비드 모예스 감독의 에버턴 통산 593번째 경기로 구단 최다 지휘 기록이 세워진 날이었고, 에버턴은 9위로 내려갔다."
+    "결과: 세인트루이스 시티가 에너자이저 파크에서 LAFC를 3-2로 꺾고 3판 2선승제 시리즈에서 먼저 1승을 챙겼다.",
+    "인물: 정상빈은 후반 6분 페널티아크 부근 오른발 땅볼 중거리슛으로 골을 넣고 선제골에도 관여해 경기 최우수 선수로 뽑혔다.",
+    "인물: 손흥민은 선발로 풀타임을 뛰며 팀 내 최다인 5차례 기회를 만들었지만 슈팅 2개와 막판 프리킥이 모두 빗나갔다.",
+    "기록: 에델만 선제골과 베처의 후반 33분 추가골로 세인트루이스가 앞섰고, LAFC는 팔렌시아의 후반 17분 골과 경기 막판 부앙가의 페널티킥으로 따라붙었다.",
+    "다음: 2차전은 29일 LAFC 홈 BMO 스타디움에서 열리며, 1승씩 나눠 가지면 12월 3일 세인트루이스에서 3차전을 치른다."
    ],
-   "url": "https://www.skysports.com/football/brentford-vs-everton/report/559546"
+   "url": "https://sports.khan.co.kr/article/202611241251003"
+  },
+  {
+   "tag": "MLB",
+   "t": "김하성, 디트로이트와 1년 최대 600만달러 계약 합의",
+   "s": "부상으로 최악의 시즌을 보낸 김하성이 디트로이트 타이거스와 기본 500만달러에 인센티브 100만달러를 더한 1년 계약에 합의해 빅리그 잔류에 성공했다.",
+   "points": [
+    "결과: ESPN과 MLB닷컴 보도에 따르면 계약은 신체검사 절차만 남겨 두고 있으며 구단 공식 발표는 아직 나오지 않았다.",
+    "기록: 김하성은 올해 오른손 중지 힘줄 파열 수술 여파로 51경기에서 타율 0.116, 홈런 없이 9타점, OPS 0.359에 그쳤다.",
+    "맥락: 애틀랜타와 맺었던 1년 2000만달러 계약과 비교하면 연봉이 4분의 1 수준으로 줄었다.",
+    "다음: MLB닷컴은 김하성이 지난해 AL 신인왕 케빈 맥고니글과 유격수 자리를 나눠 맡을 것으로 내다봤다."
+   ],
+   "url": "https://sports.khan.co.kr/article/202611250740003"
+  },
+  {
+   "tag": "KBO·MLB",
+   "t": "노시환 포스팅 마감 임박, 빅리그 10개 구단과 연결",
+   "s": "한화 노시환의 메이저리그 포스팅 협상 시한이 한국시간 12월 2일 오전 7시로 다가왔지만 23일까지 구체적 계약 소식은 나오지 않았다.",
+   "points": [
+    "다음: 미 동부시간 12월 1일 오후 5시까지 계약하지 못하면 이번 포스팅은 끝나고 노시환은 한화에 남는다.",
+    "화제: 현지 언론에서는 세인트루이스, 양키스, 시애틀, 에인절스 등 3루 보강이 필요한 팀이 유력 후보로 거론됐다.",
+    "맥락: 필라델피아, 피츠버그, 샌디에이고, 휴스턴, 메츠에 이어 캔자스시티까지 이름이 나오며 연결 구단이 10곳으로 늘었다.",
+    "맥락: 김혜성과 송성문도 과거 협상 마감 직전에 계약을 확정한 바 있어 막판 타결 가능성에 관심이 쏠린다."
+   ],
+   "url": "https://www.seoul.co.kr/news/sport/baseball/2026/11/24/20261124034001"
   },
   {
    "tag": "NBA",
-   "t": "머리 45점·요키치 트리플더블, 덴버 연장 끝 151-145 승",
-   "s": "덴버가 22일 시카고 원정에서 자말 머리의 시즌 최다 45점과 니콜라 요키치의 트리플더블로 불스를 연장 끝에 151-145로 이겼다.",
+   "t": "밀워키, 토론토 116-111로 꺾고 13연패 탈출",
+   "s": "밀워키 벅스가 23일(현지시간) 토론토 원정에서 타일러 히로의 32점을 앞세워 랩터스를 116-111로 누르고 구단 역대 두 번째로 긴 13연패를 끊었다.",
    "points": [
-    "결과: 덴버가 22일(현지시간) 시카고에서 불스를 연장 접전 끝에 151-145로 꺾었다.",
-    "인물: 머리는 야투 22개 중 13개, 3점슛 11개 중 6개, 자유투 14개 중 13개를 넣어 시즌 최다 45점을 올렸다.",
-    "기록: 요키치는 37점 18리바운드 11어시스트로 개인 통산 202번째 트리플더블을 기록했다.",
-    "기록: 머리는 연장에서만 8점을 넣어 승부를 갈랐다.",
-    "맥락: 덴버는 10승 5패가 됐고 시카고는 4승 12패로 처졌다."
+    "결과: 밀워키가 전반 최대 14점 차 열세를 뒤집고 4쿼터를 85-80으로 앞선 채 시작해 승리를 지켰다.",
+    "인물: 히로는 야투 16개 중 10개, 3점슛 5개 중 4개를 넣었고 3쿼터에 흐름을 바꿨다.",
+    "기록: 마일스 터너가 시즌 최다 3점슛 5개를 포함해 27점 11리바운드, 카일 쿠즈마가 18점을 보탰다.",
+    "화제: 종료 2분 2초 전 신인 브레이든 버리스가 스카티 반스의 공을 빼앗은 뒤 자유투 2개로 111-104를 만들었다.",
+    "맥락: 반스가 양 팀 최다 31점을 넣었지만 토론토는 최근 8경기 7패에 빠졌고 밀워키는 2승 16패가 됐다."
    ],
-   "url": "https://www.denver7.com/sports/nuggets/jokics-triple-double-murrays-45-points-lead-nuggets-to-151-145-overtime-win-over-bulls"
-  },
-  {
-   "tag": "MLS",
-   "t": "손흥민의 LAFC, 오늘 오전 세인트루이스와 PO 1차전",
-   "s": "손흥민의 LAFC가 24일 오전 10시(한국시간) 세인트루이스 원정에서 MLS컵 플레이오프 1라운드 1차전을 치른다.",
-   "points": [
-    "다음: LAFC는 24일 오전 10시 에너자이저 파크에서 세인트루이스 시티와 3판 2선승제 1라운드 첫 경기를 갖는다.",
-    "맥락: LAFC는 서부 6위, 세인트루이스는 3위로 정규리그를 마쳤고 올 시즌 맞대결은 1승 1패였다.",
-    "인물: 손흥민은 공식전 42경기 9골 22도움을 기록했지만 최근 4경기 연속 공격포인트가 없다.",
-    "화제: 세인트루이스에는 한국 공격수 정상빈이 뛰고 있어 한국 선수 맞대결이 성사됐다.",
-    "맥락: LAFC는 부진 끝에 도스 산토스 감독이 물러나 사비 타마리트 대행 체제로 플레이오프에 나선다."
-   ],
-   "url": "https://www.interfootball.co.kr/news/articleView.html?idxno=699081"
+   "url": "https://www.washingtonpost.com/sports/nba/2026/11/23/bucks-raptors-score/84402c10-e7b5-11f1-8db0-6f1e3c389e7c_story.html"
   }
  ],
  "tracks": {
   "military": {
    "name": "군 장병",
-   "updatedAt": "2026-11-24T08:10:00+09:00",
+   "updatedAt": "2026-11-25T08:11:00+09:00",
    "oppNote": "현역 장병·간부 기준이다. 제대군인지원센터 프로그램은 복무 기간 등 대상 조건이 있다. 공모전·대외활동은 온라인으로 참여할 수 있는 것을 골랐고, 장병 참가 가능 여부는 공고에서 확인한다.",
    "opportunities": [
     {
@@ -472,10 +944,10 @@
       },
       {
        "tag": "전 군",
-       "t": "나라사랑카드 장병 대상 NOL 숙소 할인 프로모션",
-       "s": "놀유니버스가 하나·IBK기업·신한은행 나라사랑카드 이용 장병을 대상으로 숙박 할인 혜택을 연말까지 상시 운영한다. 세부 쿠폰 조건은 앱 공지에서 확인한다.",
-       "src": "파이낸셜뉴스",
-       "url": "https://www.fnnews.com/news/202601081424454113",
+       "t": "신한 나라사랑카드로 군 전용 메가패스 결제 시 5만원 캐시백",
+       "s": "신한카드가 11월 12일부터 12월 31일까지 신한 나라사랑카드 체크로 군 전용 메가패스 상품을 결제한 장병에게 5만원을 돌려준다. 캐시백은 결제한 다음 달 20일 무렵 들어오고, 세부 조건은 카드사 이벤트 페이지에서 확인한다.",
+       "src": "신한카드",
+       "url": "https://www.shinhancard.com/pconts/html/benefit/event/1236933_2239.html",
        "date": "12.31까지",
        "deadline": "2026-12-31"
       },
@@ -495,14 +967,6 @@
      "title": "자격증·시험 일정",
      "short": "시험",
      "items": [
-      {
-       "t": "기능사 상시 제38회 필기 접수·시험",
-       "s": "38회 필기는 11월 24~25일에 접수하고 11월 30일부터 12월 4일 사이에 시험을 치른다. 휴가·외출 일정과 맞춰 미리 접수해 두는 편이 좋다.",
-       "src": "month2k 국가자격 달력",
-       "url": "https://www.month2k.com/event/qnet/2026-11",
-       "deadline": "2026-11-24",
-       "date": "11.24 접수"
-      },
       {
        "t": "한국사능력검정시험 제81회",
        "s": "11월 28일 오전 10시에 심화 등급만 치러진다. 정기 접수는 10일 마감됐고 취소 좌석 접수는 잔여석이 있을 때만 열린다.",
@@ -549,7 +1013,7 @@
   },
   "civilian": {
    "name": "군무원",
-   "updatedAt": "2026-11-24T08:10:00+09:00",
+   "updatedAt": "2026-11-25T08:11:00+09:00",
    "oppNote": "근무와 병행할 수 있는 온라인 공모전·대외활동을 모았다. 겸직·외부 활동은 소속 기관 규정을 먼저 확인한다.",
    "opportunities": [
     {
@@ -587,6 +1051,17 @@
     },
     {
      "type": "공모전",
+     "title": "2026년 산림복지 국민제안 공모전",
+     "org": "한국산림복지진흥원",
+     "fields": [
+      "사회·공공",
+      "기획·전략"
+     ],
+     "deadline": "2026-11-30",
+     "url": "https://linkareer.com/activity/364359"
+    },
+    {
+     "type": "공모전",
      "title": "공공데이터 활용 경진대회",
      "org": "한국체육산업개발(주)",
      "fields": [
@@ -616,6 +1091,17 @@
      ],
      "deadline": "2026-12-04",
      "url": "https://linkareer.com/activity/364691"
+    },
+    {
+     "type": "공모전",
+     "title": "2026 국가시범도시 AI 아이디어·기술 공모전",
+     "org": "국토교통부",
+     "fields": [
+      "IT·데이터·AI",
+      "기획·전략"
+     ],
+     "deadline": "2026-12-14",
+     "url": "https://smartcity-ai.kr/"
     },
     {
      "type": "대외활동",
@@ -750,7 +1236,7 @@
      "items": [
       {
        "t": "2027년 군무원 채용 계획 아직 발표 전",
-       "s": "11월 24일 기준으로 2027년 국방부 군무원 채용 공고는 아직 나오지 않았다. 2026년에는 4월 2일에 2,646명 선발 공고가 났고, 새 계획이 나오면 바로 반영한다.",
+       "s": "11월 25일 기준으로 2027년 국방부 군무원 채용 공고는 아직 나오지 않았다. 2026년에는 4월 2일에 2,646명 선발 공고가 났고, 새 계획이 나오면 바로 반영한다.",
        "src": "정책브리핑",
        "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156752592&call_from=rsslink",
        "date": "발표 대기"
@@ -800,7 +1286,7 @@
   },
   "public": {
    "name": "공무원·공기업 준비",
-   "updatedAt": "2026-11-24T08:10:00+09:00",
+   "updatedAt": "2026-11-25T08:11:00+09:00",
    "oppNote": "공공기관·정부·지자체가 여는 인턴, 서포터즈, 공모전을 모았다. 공공 분야 대외활동 경력은 공기업 서류와 면접에서 활용하기 좋다.",
    "opportunities": [
     {
@@ -868,6 +1354,16 @@
      "url": "https://www.job-post.co.kr/news/articleView.html?idxno=239476"
     },
     {
+     "type": "인턴",
+     "title": "전북 전주 교통안전 현장 체험형 청년인턴(사무·검사) 3명",
+     "org": "한국교통안전공단",
+     "fields": [
+      "사회·공공"
+     ],
+     "deadline": "2026-12-04",
+     "url": "https://www.job-post.co.kr/news/articleView.html?idxno=239479"
+    },
+    {
      "type": "대외활동",
      "title": "2027 대덕구 SNS 서포터즈(블로그·사진·영상)",
      "org": "대전 대덕구",
@@ -891,6 +1387,17 @@
     },
     {
      "type": "대외활동",
+     "title": "제11기 행복달서 SNS기자단(앵커·유튜브·블로그)",
+     "org": "대구 달서구",
+     "fields": [
+      "콘텐츠·영상",
+      "사회·공공"
+     ],
+     "deadline": "2026-12-11",
+     "url": "https://www.ksw-news.com/news/articleView.html?idxno=3066550"
+    },
+    {
+     "type": "대외활동",
      "title": "청년 정책패널",
      "org": "국민권익위원회",
      "fields": [
@@ -898,17 +1405,6 @@
      ],
      "deadline": "2026-12-17",
      "url": "https://linkareer.com/activity/350395"
-    },
-    {
-     "type": "공모전",
-     "title": "지역사회 문제 해결 AI 솔루션 아이디어 경진대회",
-     "org": "경북 포항시",
-     "fields": [
-      "IT·데이터·AI",
-      "사회·공공"
-     ],
-     "deadline": "2026-11-25",
-     "url": "https://linkareer.com/activity/363898"
     },
     {
      "type": "공모전",
@@ -931,17 +1427,6 @@
      ],
      "deadline": "2026-11-29",
      "url": "https://linkareer.com/activity/363459"
-    },
-    {
-     "type": "공모전",
-     "title": "대구 로컬AI그라운드 지역문제 해결 AI 경진대회",
-     "org": "대구광역시",
-     "fields": [
-      "IT·데이터·AI",
-      "사회·공공"
-     ],
-     "deadline": "2026-11-30",
-     "url": "https://www.wevity.com/?c=find&s=1&gbn=view&ix=112236"
     },
     {
      "type": "공모전",
@@ -984,18 +1469,25 @@
      "short": "채용",
      "items": [
       {
-       "t": "2026년도 제6차 위촉직 직원 모집",
-       "s": "한국조세재정연구원",
-       "src": "잡알리오",
-       "url": "https://job.alio.go.kr/recruit.do",
-       "deadline": "2026-11-27"
+       "t": "신입·경력 정규직 101명 채용",
+       "s": "한국동서발전",
+       "src": "애드투 공기업 채용캘린더",
+       "url": "https://www.addto.co.kr/contents/recruitment/calendar",
+       "deadline": "2026-12-01"
       },
       {
-       "t": "2027년 1분기 정기채용 기술직(물류) 정규직",
-       "s": "우체국물류지원단",
-       "src": "잡알리오",
-       "url": "https://job.alio.go.kr/recruit.do",
-       "deadline": "2026-12-01"
+       "t": "2027년 상반기 신입·경력직원 채용",
+       "s": "국방과학연구소",
+       "src": "아웃소싱타임스",
+       "url": "https://www.outsourcing.co.kr/news/articleView.html?idxno=204428",
+       "deadline": "2026-12-02"
+      },
+      {
+       "t": "2026년도 신입사원(5·6급) 329명 채용",
+       "s": "한국농어촌공사",
+       "src": "애드투 공기업 채용캘린더",
+       "url": "https://www.addto.co.kr/contents/recruitment/calendar",
+       "deadline": "2026-12-03"
       },
       {
        "t": "2027년도 상반기 정규직 32명 채용",
@@ -1007,13 +1499,6 @@
       {
        "t": "2027년 국립공원지킴이(녹색순찰대) 채용",
        "s": "국립공원공단",
-       "src": "잡알리오",
-       "url": "https://job.alio.go.kr/recruit.do",
-       "deadline": "2026-12-07"
-      },
-      {
-       "t": "위촉직(계약직) 수의 휴직대체 채용",
-       "s": "한국마사회",
        "src": "잡알리오",
        "url": "https://job.alio.go.kr/recruit.do",
        "deadline": "2026-12-07"
@@ -2436,6 +2921,114 @@
   {
    "name": "국가시범도시 AI 공모전",
    "url": "https://smartcity-ai.kr/"
+  },
+  {
+   "name": "Businesskorea (코스피 마감)",
+   "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282072"
+  },
+  {
+   "name": "폴리뉴스 (마감시황)",
+   "url": "https://www.polinews.co.kr/news/articleView.html?idxno=749135"
+  },
+  {
+   "name": "이투데이 (환율마감)",
+   "url": "https://www.etoday.co.kr/news/view/2652403"
+  },
+  {
+   "name": "뉴스핌 (뉴욕증시)",
+   "url": "https://www.newspim.com/news/view/20261125000048"
+  },
+  {
+   "name": "서울신문 (뉴욕증시)",
+   "url": "https://www.seoul.co.kr/news/economy/2026/11/25/20261125500004"
+  },
+  {
+   "name": "한국경제",
+   "url": "https://www.hankyung.com/article/202611245745H"
+  },
+  {
+   "name": "파이낸셜뉴스",
+   "url": "https://www.fnnews.com/news/202611241313528958"
+  },
+  {
+   "name": "서울신문",
+   "url": "https://seoul.co.kr/news/economy/finance/2026/11/24/20261124500320"
+  },
+  {
+   "name": "이투데이",
+   "url": "https://www.etoday.co.kr/news/view/2652153"
+  },
+  {
+   "name": "파이낸셜뉴스",
+   "url": "https://www.fnnews.com/news/202611250137256308"
+  },
+  {
+   "name": "한국경제",
+   "url": "https://www.hankyung.com/article/2026112581317"
+  },
+  {
+   "name": "파이낸셜뉴스",
+   "url": "https://www.fnnews.com/news/202611230520487264"
+  },
+  {
+   "name": "뉴스1",
+   "url": "https://www.news1.kr/world/europe/6364880"
+  },
+  {
+   "name": "세계일보",
+   "url": "https://www.segye.com/newsView/20261122508786"
+  },
+  {
+   "name": "재경일보",
+   "url": "https://news.jkn.co.kr/post/1120176"
+  },
+  {
+   "name": "스포츠경향",
+   "url": "https://sports.khan.co.kr/article/202611241251003"
+  },
+  {
+   "name": "SPOTV뉴스",
+   "url": "https://www.spotvnews.co.kr/news/articleView.html?idxno=1021512"
+  },
+  {
+   "name": "스포츠경향 (김하성)",
+   "url": "https://sports.khan.co.kr/article/202611250740003"
+  },
+  {
+   "name": "일간스포츠 (김하성)",
+   "url": "https://isplus.com/article/view/isp202611250004"
+  },
+  {
+   "name": "서울신문 (노시환)",
+   "url": "https://www.seoul.co.kr/news/sport/baseball/2026/11/24/20261124034001"
+  },
+  {
+   "name": "머니투데이 (노시환)",
+   "url": "https://www.mt.co.kr/sports/2026/11/23/2026112317230412660"
+  },
+  {
+   "name": "Washington Post/AP (NBA)",
+   "url": "https://www.washingtonpost.com/sports/nba/2026/11/23/bucks-raptors-score/84402c10-e7b5-11f1-8db0-6f1e3c389e7c_story.html"
+  },
+  {
+   "name": "링커리어",
+   "url": "https://linkareer.com/activity/364359"
+  },
+  {
+   "name": "잡포스트",
+   "url": "https://www.job-post.co.kr/news/articleView.html?idxno=239479"
+  },
+  {
+   "name": "한국사회복지저널",
+   "url": "https://www.ksw-news.com/news/articleView.html?idxno=3066550"
+  },
+  {
+   "name": "애드투 공기업 채용캘린더",
+   "url": "https://www.addto.co.kr/contents/recruitment/calendar"
+  },
+  {
+   "name": "아웃소싱타임스",
+   "url": "https://www.outsourcing.co.kr/news/articleView.html?idxno=204428"
   }
  ]
 }
